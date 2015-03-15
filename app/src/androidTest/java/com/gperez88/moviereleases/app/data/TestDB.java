@@ -31,6 +31,7 @@ public class TestDB extends AndroidTestCase {
     public void testCreateDb() {
         final HashSet<String> tableNameHashSet = new HashSet<String>();
         tableNameHashSet.add(MovieEntry.TABLE_NAME);
+        tableNameHashSet.add(CountryEntry.TABLE_NAME);
 
         mContext.deleteDatabase(MovieDbHelper.DATABASE_NAME);
         SQLiteDatabase db = new MovieDbHelper(mContext).getWritableDatabase();
@@ -52,13 +53,6 @@ public class TestDB extends AndroidTestCase {
         assertTrue("Error: Your database was created without both the location entry and weather entry tables",
                 tableNameHashSet.isEmpty());
 
-        // now, do our tables contain the correct columns?
-        c = db.rawQuery("PRAGMA table_info(" + MovieEntry.TABLE_NAME + ")",
-                null);
-
-        assertTrue("Error: This means that we were unable to query the database for table information.",
-                c.moveToFirst());
-
         db.close();
     }
 
@@ -73,7 +67,6 @@ public class TestDB extends AndroidTestCase {
         countryRowId = db.insert(CountryEntry.TABLE_NAME, null, contentValues);
 
         assertTrue(countryRowId != -1);
-
 
         // Data's inserted.  IN THEORY.  Now pull some out to stare at it and verify it made
         // the round trip.

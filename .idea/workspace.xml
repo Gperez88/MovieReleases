@@ -7,14 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1dbfc3c7-ff13-4f2c-a310-689add8559c0" name="Default" comment="">
-      <change type="MOVED" beforePath="C:\Users\GPEREZ\AndroidStudioWorkspace\MovieReleases\app\src\androidTest\java\com\gperez88\moviereleases\FullTestSuite.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/FullTestSuite.java" />
-      <change type="MOVED" beforePath="C:\Users\GPEREZ\AndroidStudioWorkspace\MovieReleases\app\src\androidTest\java\com\gperez88\moviereleases\data\TestDB.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestDB.java" />
-      <change type="MOVED" beforePath="C:\Users\GPEREZ\AndroidStudioWorkspace\MovieReleases\app\src\androidTest\java\com\gperez88\moviereleases\data\TestUtils.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestUtils.java" />
-      <change type="MOVED" beforePath="C:\Users\GPEREZ\AndroidStudioWorkspace\MovieReleases\app\src\main\java\com\gperez88\moviereleases\MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/MainActivity.java" />
-      <change type="MOVED" beforePath="C:\Users\GPEREZ\AndroidStudioWorkspace\MovieReleases\app\src\main\java\com\gperez88\moviereleases\data\MovieContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java" />
-      <change type="MOVED" beforePath="C:\Users\GPEREZ\AndroidStudioWorkspace\MovieReleases\app\src\main\java\com\gperez88\moviereleases\data\MovieDbHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieDbHelper.java" />
-      <change type="MOVED" beforePath="C:\Users\GPEREZ\AndroidStudioWorkspace\MovieReleases\app\src\main\java\com\gperez88\moviereleases\data\MovieProvider.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieProvider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieProvider.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieProvider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestDB.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestDB.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MovieReleases.iws" />
@@ -41,8 +36,8 @@
       <file leaf-file-name="MovieContract.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="579" max-vertical-offset="1394">
-              <caret line="45" column="35" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="817" max-vertical-offset="1479">
+              <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -53,7 +48,7 @@
       <file leaf-file-name="MovieDbHelper.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieDbHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="134" max-vertical-offset="918">
+            <state vertical-scroll-proportion="0.0" vertical-offset="183" max-vertical-offset="918">
               <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -64,30 +59,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestDB.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestDB.java">
+      <file leaf-file-name="MovieProvider.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieProvider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.5081967" vertical-offset="2405" max-vertical-offset="2771">
-              <caret line="113" column="16" selection-start-line="113" selection-start-column="16" selection-end-line="113" selection-end-column="16" />
+            <state vertical-scroll-proportion="1.0409836" vertical-offset="350" max-vertical-offset="1224">
+              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#934#942#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestUtils.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="154" max-vertical-offset="731">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#createTestMovieValues#0;class#TestUtils#0" expanded="false" />
-                <element signature="method#validateCursor#0;class#TestUtils#0" expanded="false" />
-                <element signature="method#validateCurrentRecord#0;class#TestUtils#0" expanded="false" />
-                <element signature="method#formatDate#0;class#TestUtils#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -799,11 +777,11 @@
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/data/TestDB.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/data/MovieContract.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieProvider.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieDbHelper.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestDB.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieProvider.java" />
       </list>
     </option>
   </component>
@@ -870,32 +848,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MovieReleases" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -968,8 +920,8 @@
     <property name="recentsLimit" value="5" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="TA8900B2ZE" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="emulator-5554" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_21_x86" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/androidTest/java" />
   </component>
@@ -1171,12 +1123,32 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32993197" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -1185,7 +1157,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32993197" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -1279,29 +1251,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieProvider.java">
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestDB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54642856" vertical-offset="17" max-vertical-offset="1173">
-          <caret line="19" column="33" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.9357143" vertical-offset="428" max-vertical-offset="2652">
+          <caret line="60" column="32" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#874#875#0" expanded="true" />
-            <element signature="e#902#903#0" expanded="true" />
-            <element signature="e#1112#1113#0" expanded="true" />
-            <element signature="e#1139#1140#0" expanded="true" />
-            <element signature="e#1209#1210#0" expanded="true" />
-            <element signature="e#1236#1237#0" expanded="true" />
-            <element signature="e#1326#1327#0" expanded="true" />
-            <element signature="e#1350#1351#0" expanded="true" />
-            <element signature="e#1529#1530#0" expanded="true" />
-            <element signature="e#1556#1557#0" expanded="true" />
+            <element signature="e#934#942#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="154" max-vertical-offset="731">
+        <state vertical-scroll-proportion="0.575" vertical-offset="154" max-vertical-offset="731">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1313,19 +1276,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="579" max-vertical-offset="1394">
-          <caret line="45" column="35" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieDbHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="134" max-vertical-offset="918">
+        <state vertical-scroll-proportion="0.0" vertical-offset="183" max-vertical-offset="918">
           <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1335,13 +1288,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestDB.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5081967" vertical-offset="2405" max-vertical-offset="2771">
-          <caret line="113" column="16" selection-start-line="113" selection-start-column="16" selection-end-line="113" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="817" max-vertical-offset="1479">
+          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#934#942#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0409836" vertical-offset="350" max-vertical-offset="1224">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
