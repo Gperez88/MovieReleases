@@ -1,11 +1,12 @@
-package com.gperez88.moviereleases.data;
+package com.gperez88.moviereleases.app.data;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
-import com.gperez88.moviereleases.data.MovieContract.MovieEntry;
+import com.gperez88.moviereleases.app.data.MovieContract.MovieEntry;
+import com.gperez88.moviereleases.app.data.MovieContract.CountryEntry;
 
 import java.util.HashSet;
 
@@ -61,16 +62,17 @@ public class TestDB extends AndroidTestCase {
         db.close();
     }
 
-    public void testMovieTable() {
+
+    public long testCountryTable(){
         MovieDbHelper movieDbHelper = new MovieDbHelper(mContext);
         SQLiteDatabase db = movieDbHelper.getWritableDatabase();
 
-        ContentValues contentValues = TestUtils.createTestMovieValues();
+        ContentValues contentValues = TestUtils.createTestCountryValues();
 
-        long movieRowId;
-        movieRowId = db.insert(MovieEntry.TABLE_NAME, null, contentValues);
+        long countryRowId;
+        countryRowId = db.insert(CountryEntry.TABLE_NAME, null, contentValues);
 
-        assertTrue(movieRowId != -1);
+        assertTrue(countryRowId != -1);
 
 
         // Data's inserted.  IN THEORY.  Now pull some out to stare at it and verify it made
@@ -79,7 +81,7 @@ public class TestDB extends AndroidTestCase {
         // Fourth Step: Query the database and receive a Cursor back
         // A cursor is your primary interface to the query results.
         Cursor cursor = db.query(
-                MovieEntry.TABLE_NAME,  // Table to Query
+                CountryEntry.TABLE_NAME,  // Table to Query
                 null, // all columns
                 null, // Columns for the "where" clause
                 null, // Values for the "where" clause
@@ -105,5 +107,55 @@ public class TestDB extends AndroidTestCase {
         // Sixth Step: Close Cursor and Database
         cursor.close();
         db.close();
+
+        return countryRowId;
+    }
+
+    public void testMovieTable() {
+        long countryRowId = testCountryTable();
+
+        // Make sure we have a valid row ID.
+        assertFalse("Error: Country Not Inserted Correctly", countryRowId == -1L);
+
+        // First step: Get reference to writable database
+        // If there's an error in those massive SQL table creation Strings,
+        // errors will be thrown here when you try to get a writable database.
+        MovieDbHelper dbHelper = new MovieDbHelper(mContext);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // Second Step (Movie): Create movie values
+        ContentValues weatherValues = TestUtils.createTestMovieValues(countryRowId);
+
+        // Third Step (Movie): Insert ContentValues into database and get a row ID back
+        long movieRowId = db.insert(MovieEntry.TABLE_NAME, null, weatherValues);
+        assertTrue(movieRowId != -1);
+
+        // Fourth Step: Query the database and receive a Cursor back
+        // A cursor is your primary interface to the query results.
+        Cursor movieCursor = db.query(
+                MovieEntry.TABLE_NAME,  // Table to Query
+                null, // leaving "columns" null just returns all the columns.
+                null, // cols for "where" clause
+                null, // values for "where" clause
+                null, // columns to group by
+                null, // columns to filter by row groups
+                null  // sort order
+        );
+
+
+        // Move the cursor to the first valid database row and check to see if we have any rows
+        assertTrue( "Error: No Records returned from location query", movieCursor.moveToFirst() );
+
+        // Fifth Step: Validate the movie Query
+        TestUtils.validateCurrentRecord("testInsertReadDb movieEntry failed to validate",
+                movieCursor, weatherValues);
+
+        // Move the cursor to demonstrate that there is only one record in the database
+        assertFalse( "Error: More than one record returned from movie query",
+                movieCursor.moveToNext() );
+
+        // Sixth Step: Close cursor and database
+        movieCursor.close();
+        dbHelper.close();
     }
 }

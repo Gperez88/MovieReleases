@@ -1,4 +1,4 @@
-package com.gperez88.moviereleases;
+package com.gperez88.moviereleases.app;
 
 import android.test.suitebuilder.TestSuiteBuilder;
 
