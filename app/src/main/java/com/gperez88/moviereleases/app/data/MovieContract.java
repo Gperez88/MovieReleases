@@ -22,6 +22,29 @@ public class MovieContract {
     public static final String PATH_COUNTRY = "country";
     public static final String PATH_MOVIE = "movie";
 
+    public final static class CountryEntry implements BaseColumns{
+
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE).build();
+
+        //multiple items
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY;
+
+        //single item
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY;
+
+        //Table name
+        public static final String TABLE_NAME = "country";
+
+        public static final String COLUMN_CODE = "code";
+        public static final String COLUMN_NAME = "name";
+
+        public static Uri buildCountryUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+    };
+
     public final static class MovieEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE).build();
@@ -49,33 +72,14 @@ public class MovieContract {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
-    };
-
-    public final static class CountryEntry implements BaseColumns{
-
-        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE).build();
-
-        //multiple items
-        public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY;
-
-        //single item
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY;
-
-        //Table name
-        public static final String TABLE_NAME = "country";
-
-        public static final String COLUMN_CODE = "code";
-        public static final String COLUMN_NAME = "name";
-
-        public static Uri buildMovieUri(long id) {
-            return ContentUris.withAppendedId(CONTENT_URI, id);
-        }
-
         public static Uri buildMovieCountry(String countryStting) {
             return CONTENT_URI.buildUpon().appendPath(countryStting).build();
         }
-    }
+
+        public static String getCountryFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+
+    };
 
 }
