@@ -1,11 +1,13 @@
 package com.gperez88.moviereleases.app.data;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
-import com.gperez88.moviereleases.app.data.MovieContract.MovieEntry;
 import com.gperez88.moviereleases.app.data.MovieContract.CountryEntry;
+import com.gperez88.moviereleases.app.data.MovieContract.MovieEntry;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,6 +60,26 @@ public class TestUtils extends AndroidTestCase {
                     expectedValue + "'. " + error, expectedValue, valueCursor.getString(idx));
         }
     }
+
+    /*
+    Students: You can uncomment this function once you have finished creating the
+    LocationEntry part of the WeatherContract as well as the WeatherDbHelper.
+ */
+    static long insertTestCountryValues(Context context) {
+        // insert our test records into the database
+        MovieDbHelper dbHelper = new MovieDbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues testValues = TestUtils.createTestCountryValues();
+
+        long countryRowId;
+        countryRowId = db.insert(CountryEntry.TABLE_NAME, null, testValues);
+
+        // Verify we got a row back.
+        assertTrue("Error: Failure to insert North Pole Location Values", countryRowId != -1);
+
+        return countryRowId;
+    }
+
 
     static Date formatDate(String dateStr) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

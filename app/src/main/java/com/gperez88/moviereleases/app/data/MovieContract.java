@@ -24,7 +24,7 @@ public class MovieContract {
 
     public final static class CountryEntry implements BaseColumns{
 
-        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE).build();
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_COUNTRY).build();
 
         //multiple items
         public static final String CONTENT_TYPE =
