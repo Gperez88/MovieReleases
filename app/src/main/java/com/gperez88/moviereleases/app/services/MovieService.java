@@ -14,16 +14,32 @@ import java.net.URL;
  * Created by GPEREZ on 3/16/2015.
  */
 public class MovieService {
+    private static final String LOG_TAG = MovieService.class.getSimpleName();
+
+    private static final String API_KEY = "5szncvhqdyhrkwecqsrtacwr";
 
     public static final String SECTION_BOX_OFFICE = "box_office";
     public static final String SECTION_IN_THEATERS = "in_theaters";
     public static final String SECTION_OPENING = "opening";
     public static final String SECTION_UNCOMING = "upcoming";
 
-    private static final String LOG_TAG = MovieService.class.getSimpleName();
-    private static final String API_KEY = "5szncvhqdyhrkwecqsrtacwr";
+    public static String getMoviesBoxOffice(String codeCountry){
+        return callBaseService(codeCountry, SECTION_BOX_OFFICE);
+    }
 
-    public static String getMovies(String codeCountry, String sectionUrl){
+    public static String getMoviesInTheaters(String codeCountry){
+        return callBaseService(codeCountry, SECTION_IN_THEATERS);
+    }
+
+    public static String getMoviesOpening(String codeCountry){
+        return callBaseService(codeCountry, SECTION_OPENING);
+    }
+
+    public static String getMoviesUpComing(String codeCountry){
+        return callBaseService(codeCountry, SECTION_UNCOMING);
+    }
+
+    private static String callBaseService(String codeCountry, String sectionUrl){
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 

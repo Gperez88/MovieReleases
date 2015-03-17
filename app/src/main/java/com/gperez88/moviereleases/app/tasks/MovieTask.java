@@ -63,7 +63,16 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
         return countryId;
     }
 
-    public void getMovieDataFromJson(String movieJsonStr, String codeCountrySetting, String countryNameSetting) throws JSONException {
+    public void getMovieDataFormJson(String[] jsonStrs, String codeCountrySetting, String countryNameSetting, String[] sections) throws JSONException {
+        if (jsonStrs.length == 0 && sections.length == 0 && jsonStrs.length != sections.length)
+            return;
+
+        for (int i = 0; i < jsonStrs.length; i++) {
+            getMovieDataFromJson(jsonStrs[i], codeCountrySetting, countryNameSetting, sections[i]);
+        }
+    }
+
+    public void getMovieDataFromJson(String jsonStr, String codeCountrySetting, String countryNameSetting, String sectionUrl) throws JSONException {
 
         final String MOVIES = "movies";
 
@@ -76,7 +85,7 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
         final String THUMBNAIL = "thumbnail";
 
         try {
-            JSONObject movieJson = new JSONObject(movieJsonStr);
+            JSONObject movieJson = new JSONObject(jsonStr);
             JSONArray movieArray = movieJson.getJSONArray(MOVIES);
 
             long countryId = addCountry(codeCountrySetting, countryNameSetting);
@@ -111,10 +120,9 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
                 movieValues.put(MovieEntry.COLUMN_SYNOPSIS, synopsis);
                 movieValues.put(MovieEntry.COLUMN_THUMBNAIL_URL, thumbnailUrl);
                 movieValues.put(MovieEntry.COLUMN_COUNTRY_ID, countryId);
+                movieValues.put(MovieEntry.COLUMN_SECTION, sectionUrl);
 
                 cVVector.add(movieValues);
-
-
             }
 
             int inserted = 0;
@@ -141,11 +149,23 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
 
         String codeCountryQuery = params[0];
         String countryNameQuery = params[1];
-        String sectionUrlServiceQuery = params[2];
 
         try {
-            String movieJsonStr = MovieService.getMovies(codeCountryQuery, sectionUrlServiceQuery);
-            getMovieDataFromJson(movieJsonStr, codeCountryQuery, countryNameQuery);
+
+            String boxOfficeJsonStr = MovieService.getMoviesBoxOffice(codeCountryQuery);
+            String inTheatersJsonStr = MovieService.getMoviesInTheaters(codeCountryQuery);
+            String openingJsonStr = MovieService.getMoviesOpening(codeCountryQuery);
+            String upcomingJsonStr = MovieService.getMoviesUpComing(codeCountryQuery);
+
+            //json string for sections.
+            String[] jsonStrs = {boxOfficeJsonStr, inTheatersJsonStr, openingJsonStr, upcomingJsonStr};
+            //sections.
+            String[] sections = {MovieService.SECTION_BOX_OFFICE,
+                    MovieService.SECTION_IN_THEATERS,
+                    MovieService.SECTION_OPENING,
+                    MovieService.SECTION_UNCOMING};
+
+            getMovieDataFormJson(jsonStrs, codeCountryQuery, countryNameQuery, sections);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(LOG_TAG, e.getMessage());
