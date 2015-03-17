@@ -25,11 +25,13 @@ public class MovieService {
         String moviesJsonStr = null;
 
         try {
-            final String MOVIE_BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?";
+            final String MOVIE_BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/";
+            final String SECTION_URL = "in_theaters.json?";
             final String COUNTRY_PARAM = "country";
             final String API_KEY_PARAM = "apikey";
 
             Uri builtUri = Uri.parse(MOVIE_BASE_URL).buildUpon()
+                    .appendPath(SECTION_URL)
                     .appendQueryParameter(COUNTRY_PARAM, codeCountry)
                     .appendQueryParameter(API_KEY_PARAM, API_KEY)
                     .build();

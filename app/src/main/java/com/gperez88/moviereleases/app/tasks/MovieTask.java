@@ -63,7 +63,7 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
         return countryId;
     }
 
-    public void getMovieDataFromJson(String movieJsonStr, String countrySetting) throws JSONException {
+    public void getMovieDataFromJson(String movieJsonStr, String codeCountrySetting, String countryNameSetting) throws JSONException {
 
         final String MOVIES = "movies";
 
@@ -79,10 +79,9 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
             JSONObject movieJson = new JSONObject(movieJsonStr);
             JSONArray movieArray = movieJson.getJSONArray(MOVIES);
 
-            //TODO:ojo buscar la forma de pasar el country name.
-            long countryId = addCountry(countrySetting,"");
+            long countryId = addCountry(codeCountrySetting,countryNameSetting);
 
-            Vector<ContentValues> cVVector = new Vector<ContentValues>(movieArray.length());
+            Vector<ContentValues> cVVector = new Vector<>(movieArray.length());
 
             for (int i = 0; i < movieArray.length(); i++) {
 
@@ -98,10 +97,10 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
                 year = movie.getInt(YEAR);
                 synopsis = movie.getString(SYNOPSIS);
 
-                JSONObject releaseDatesJson = new JSONObject(RELEASE_DATES);
+                JSONObject releaseDatesJson = movie.getJSONObject(RELEASE_DATES);
                 releaseDates = releaseDatesJson.getString(RELEASE_DATES_THEATER);
 
-                JSONObject thumbnailUrlJson = new JSONObject(POSTERS);
+                JSONObject thumbnailUrlJson = movie.getJSONObject(POSTERS);
                 thumbnailUrl = thumbnailUrlJson.getString(THUMBNAIL);
 
                 ContentValues movieValues = new ContentValues();
@@ -111,9 +110,11 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
                 movieValues.put(MovieEntry.COLUMN_RELEASE_DATE, releaseDates);
                 movieValues.put(MovieEntry.COLUMN_SYNOPSIS, synopsis);
                 movieValues.put(MovieEntry.COLUMN_THUMBNAIL_URL, thumbnailUrl);
-                movieValues.put(MovieEntry.COLUMN_COUNTRY_ID, countrySetting);
+                movieValues.put(MovieEntry.COLUMN_COUNTRY_ID, countryId);
 
                 cVVector.add(movieValues);
+
+
             }
 
             int inserted = 0;
@@ -134,15 +135,16 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... params) {
-        if (params.length == 0) {
+        if (params.length == 0 && params.length < 2) {
             return null;
         }
 
         String codeCountryQuery = params[0];
+        String countryNameQuery = params[1];
 
         try {
             String movieJsonStr = MovieService.getMovies(codeCountryQuery);
-            getMovieDataFromJson(movieJsonStr, codeCountryQuery);
+            getMovieDataFromJson(movieJsonStr, codeCountryQuery,countryNameQuery);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(LOG_TAG, e.getMessage());

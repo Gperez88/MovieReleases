@@ -34,8 +34,9 @@ public class MoviesFragment extends Fragment {
     private void updateMovie() {
         MovieTask movieTask = new MovieTask(getActivity());
         //TODO:mientras construyo la pantalla de setting.
+        String countryName = "dominican republic";
         String codeCountry = "do";
-        movieTask.execute(codeCountry);
+        movieTask.execute(codeCountry,countryName);
     }
 
 }
