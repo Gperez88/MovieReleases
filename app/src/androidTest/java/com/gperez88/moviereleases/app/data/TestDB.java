@@ -29,7 +29,7 @@ public class TestDB extends AndroidTestCase {
     }
 
     public void testCreateDb() {
-        final HashSet<String> tableNameHashSet = new HashSet<String>();
+        final HashSet<String> tableNameHashSet = new HashSet<>();
         tableNameHashSet.add(MovieEntry.TABLE_NAME);
         tableNameHashSet.add(CountryEntry.TABLE_NAME);
 
@@ -46,7 +46,7 @@ public class TestDB extends AndroidTestCase {
         // verify that the tables have been created
         do {
             tableNameHashSet.remove(c.getString(0));
-        } while( c.moveToNext() );
+        } while (c.moveToNext());
 
         // if this fails, it means that your database doesn't contain both the location entry
         // and weather entry tables
@@ -57,7 +57,7 @@ public class TestDB extends AndroidTestCase {
     }
 
 
-    public long testCountryTable(){
+    public long testCountryTable() {
         MovieDbHelper movieDbHelper = new MovieDbHelper(mContext);
         SQLiteDatabase db = movieDbHelper.getWritableDatabase();
 
@@ -85,7 +85,7 @@ public class TestDB extends AndroidTestCase {
 
         // Move the cursor to a valid database row and check to see if we got any records back
         // from the query
-        assertTrue( "Error: No Records returned from location query", cursor.moveToFirst() );
+        assertTrue("Error: No Records returned from location query", cursor.moveToFirst());
 
         // Fifth Step: Validate data in resulting Cursor with the original ContentValues
         // (you can use the validateCurrentRecord function in TestUtilities to validate the
@@ -94,8 +94,8 @@ public class TestDB extends AndroidTestCase {
                 cursor, contentValues);
 
         // Move the cursor to demonstrate that there is only one record in the database
-        assertFalse( "Error: More than one record returned from location query",
-                cursor.moveToNext() );
+        assertFalse("Error: More than one record returned from location query",
+                cursor.moveToNext());
 
         // Sixth Step: Close Cursor and Database
         cursor.close();
@@ -106,6 +106,7 @@ public class TestDB extends AndroidTestCase {
 
     public void testMovieTable() {
         long countryRowId = testCountryTable();
+        String section = "opening";
 
         // Make sure we have a valid row ID.
         assertFalse("Error: Country Not Inserted Correctly", countryRowId == -1L);
@@ -117,7 +118,7 @@ public class TestDB extends AndroidTestCase {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Second Step (Movie): Create movie values
-        ContentValues weatherValues = TestUtils.createTestMovieValues(countryRowId);
+        ContentValues weatherValues = TestUtils.createTestMovieValues(countryRowId, section);
 
         // Third Step (Movie): Insert ContentValues into database and get a row ID back
         long movieRowId = db.insert(MovieEntry.TABLE_NAME, null, weatherValues);
@@ -137,15 +138,15 @@ public class TestDB extends AndroidTestCase {
 
 
         // Move the cursor to the first valid database row and check to see if we have any rows
-        assertTrue( "Error: No Records returned from location query", movieCursor.moveToFirst() );
+        assertTrue("Error: No Records returned from location query", movieCursor.moveToFirst());
 
         // Fifth Step: Validate the movie Query
         TestUtils.validateCurrentRecord("testInsertReadDb movieEntry failed to validate",
                 movieCursor, weatherValues);
 
         // Move the cursor to demonstrate that there is only one record in the database
-        assertFalse( "Error: More than one record returned from movie query",
-                movieCursor.moveToNext() );
+        assertFalse("Error: More than one record returned from movie query",
+                movieCursor.moveToNext());
 
         // Sixth Step: Close cursor and database
         movieCursor.close();

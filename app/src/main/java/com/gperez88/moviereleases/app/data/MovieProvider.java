@@ -23,33 +23,59 @@ public class MovieProvider extends ContentProvider {
 
     static final int MOVIE = 100;
     static final int MOVIE_WITH_COUNTRY = 101;
+    static final int MOVIE_WITH_COUNTRY_AND_SECTION = 102;
     static final int COUNTRY = 300;
 
-    private final static SQLiteQueryBuilder  movieQueryBuilder;
+    private final static SQLiteQueryBuilder movieQueryBuilder;
 
-    static{
+    static {
         movieQueryBuilder = new SQLiteQueryBuilder();
 
         movieQueryBuilder.setTables(MovieEntry.TABLE_NAME + "INNER JOIN " +
-                        CountryEntry.TABLE_NAME +
-                        " ON " + MovieEntry.TABLE_NAME +
-                        "." + MovieEntry.COLUMN_COUNTRY_ID +
-                        " = " + CountryEntry.TABLE_NAME +
-                        "." + CountryEntry._ID);
+                CountryEntry.TABLE_NAME +
+                " ON " + MovieEntry.TABLE_NAME +
+                "." + MovieEntry.COLUMN_COUNTRY_ID +
+                " = " + CountryEntry.TABLE_NAME +
+                "." + CountryEntry._ID);
     }
 
     private static final String sCountryCodeSelection =
-            CountryEntry.TABLE_NAME+
+            CountryEntry.TABLE_NAME +
                     "." + CountryEntry.COLUMN_CODE + " = ? ";
 
-    private Cursor getMovieByCountry(Uri uri, String[] projection, String sortOrder){
-        String countryCode = MovieEntry.getCountryFromUri(uri);
+    private static final String sCountryCodeAndSectionSelection =
+            CountryEntry.TABLE_NAME +
+                    "." + CountryEntry.COLUMN_CODE + " = ? AND " +
+                    MovieEntry.COLUMN_SECTION + " = ? ";
+
+    private Cursor getMovieByCodeCountry(Uri uri, String[] projection, String sortOrder) {
+        String countryCode = MovieEntry.getCodeCountryFromUri(uri);
 
         String[] selectionArgs;
         String selection;
 
         selection = sCountryCodeSelection;
         selectionArgs = new String[]{countryCode};
+
+        return movieQueryBuilder.query(mOpenHelper.getReadableDatabase(),
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+        );
+    }
+
+    private Cursor getMovieByCodeCountryAndSection(Uri uri, String[] projection, String sortOrder) {
+        String countryCode = MovieEntry.getCodeCountryFromUri(uri);
+        String section = MovieEntry.getSectionFromUri(uri);
+
+        String[] selectionArgs;
+        String selection;
+
+        selection = sCountryCodeAndSectionSelection;
+        selectionArgs = new String[]{countryCode, section};
 
         return movieQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,
@@ -74,6 +100,7 @@ public class MovieProvider extends ContentProvider {
         // For each type of URI you want to add, create a corresponding code.
         matcher.addURI(authority, MovieContract.PATH_MOVIE, MOVIE);
         matcher.addURI(authority, MovieContract.PATH_MOVIE + "/*", MOVIE_WITH_COUNTRY);
+        matcher.addURI(authority, MovieContract.PATH_MOVIE + "/*/*", MOVIE_WITH_COUNTRY_AND_SECTION);
 
         matcher.addURI(authority, MovieContract.PATH_COUNTRY, COUNTRY);
         return matcher;
@@ -95,6 +122,8 @@ public class MovieProvider extends ContentProvider {
             // Student: Uncomment and fill out these two cases
             case MOVIE_WITH_COUNTRY:
                 return MovieEntry.CONTENT_TYPE;
+            case MOVIE_WITH_COUNTRY_AND_SECTION:
+                return MovieEntry.CONTENT_TYPE;
             case MOVIE:
                 return MovieEntry.CONTENT_TYPE;
             case COUNTRY:
@@ -113,7 +142,12 @@ public class MovieProvider extends ContentProvider {
 
             // "movie/*"
             case MOVIE_WITH_COUNTRY: {
-                retCursor = getMovieByCountry(uri, projection, sortOrder);
+                retCursor = getMovieByCodeCountry(uri, projection, sortOrder);
+                break;
+            }
+            // "movie/*/*"
+            case MOVIE_WITH_COUNTRY_AND_SECTION: {
+                retCursor = getMovieByCodeCountryAndSection(uri, projection, sortOrder);
                 break;
             }
             // "movie"
@@ -159,7 +193,7 @@ public class MovieProvider extends ContentProvider {
         switch (match) {
             case MOVIE: {
                 long _id = db.insert(MovieEntry.TABLE_NAME, null, values);
-                if ( _id > 0 )
+                if (_id > 0)
                     returnUri = MovieEntry.buildMovieUri(_id);
                 else
                     throw new android.database.SQLException("Failed to insert row into " + uri);
@@ -167,7 +201,7 @@ public class MovieProvider extends ContentProvider {
             }
             case COUNTRY: {
                 long _id = db.insert(CountryEntry.TABLE_NAME, null, values);
-                if ( _id > 0 )
+                if (_id > 0)
                     returnUri = CountryEntry.buildCountryUri(_id);
                 else
                     throw new android.database.SQLException("Failed to insert row into " + uri);
@@ -186,7 +220,7 @@ public class MovieProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         int rowsDeleted;
         // this makes delete all rows return the number of rows deleted
-        if ( null == selection ) selection = "1";
+        if (null == selection) selection = "1";
         switch (match) {
             case MOVIE:
                 rowsDeleted = db.delete(
@@ -214,10 +248,10 @@ public class MovieProvider extends ContentProvider {
 
         switch (match) {
             case MOVIE:
-                rowsUpdated = db.update(MovieEntry.TABLE_NAME, values, selection,selectionArgs);
+                rowsUpdated = db.update(MovieEntry.TABLE_NAME, values, selection, selectionArgs);
                 break;
             case COUNTRY:
-                rowsUpdated = db.update(CountryEntry.TABLE_NAME, values, selection,selectionArgs);
+                rowsUpdated = db.update(CountryEntry.TABLE_NAME, values, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

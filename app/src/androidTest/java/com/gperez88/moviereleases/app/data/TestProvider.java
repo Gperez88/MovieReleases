@@ -99,6 +99,14 @@ public class TestProvider extends AndroidTestCase {
         assertEquals("Error: the MovieEntry CONTENT_URI with country should return MovieEntry.CONTENT_TYPE",
                 MovieEntry.CONTENT_TYPE, type);
 
+        String testSection = "opening";
+        // content://com.gperez88.moviereleases.app/movie/us/opening
+        type = mContext.getContentResolver().getType(
+                MovieEntry.buildMovieCountryWithSeccion(testCountry, testSection));
+        // vnd.android.cursor.dir/com.gperez88.moviereleases.app/movie
+        assertEquals("Error: the MovieEntry CONTENT_URI with country and section should return MovieEntry.CONTENT_TYPE",
+                MovieEntry.CONTENT_TYPE, type);
+
         // content://com.example.android.sunshine.app/location/
         type = mContext.getContentResolver().getType(CountryEntry.CONTENT_URI);
         // vnd.android.cursor.dir/com.example.android.sunshine.app/location
@@ -112,9 +120,10 @@ public class TestProvider extends AndroidTestCase {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         long countryRowId = TestUtils.insertTestCountryValues(mContext);
+        String section = "opening";
 
         // Fantastic.  Now that we have a location, add some weather!
-        ContentValues weatherValues = TestUtils.createTestMovieValues(countryRowId);
+        ContentValues weatherValues = TestUtils.createTestMovieValues(countryRowId, section);
 
         long weatherRowId = db.insert(MovieEntry.TABLE_NAME, null, weatherValues);
         assertTrue("Unable to Insert MovieEntry into the Database", weatherRowId != -1);
