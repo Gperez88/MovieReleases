@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by GPEREZ on 3/14/2015.
  */
 public class MovieDbHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     static final String DATABASE_NAME = "movie.db";
 
@@ -31,6 +31,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
                 MovieContract.MovieEntry.COLUMN_RELEASE_DATE + " DATE NOT NULL, " +
                 MovieContract.MovieEntry.COLUMN_SYNOPSIS + " TEXT NOT NULL, " +
                 MovieContract.MovieEntry.COLUMN_COUNTRY_ID + " INTEGER NOT NULL, " +
+                MovieContract.MovieEntry.COLUMN_SECTION + " TEXT NOT NULL, " +
                 " FOREIGN KEY (" + MovieContract.MovieEntry.COLUMN_COUNTRY_ID + ") REFERENCES " +
                 MovieContract.CountryEntry.TABLE_NAME + " (" + MovieContract.CountryEntry._ID + "));";
 

@@ -14,11 +14,16 @@ import java.net.URL;
  * Created by GPEREZ on 3/16/2015.
  */
 public class MovieService {
-    private static final String LOG_TAG = MovieService.class.getSimpleName();
 
+    public static final String SECTION_BOX_OFFICE = "box_office";
+    public static final String SECTION_IN_THEATERS = "in_theaters";
+    public static final String SECTION_OPENING = "opening";
+    public static final String SECTION_UNCOMING = "upcoming";
+
+    private static final String LOG_TAG = MovieService.class.getSimpleName();
     private static final String API_KEY = "5szncvhqdyhrkwecqsrtacwr";
 
-    public static String getMovies(String codeCountry){
+    public static String getMovies(String codeCountry, String sectionUrl){
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
@@ -26,12 +31,11 @@ public class MovieService {
 
         try {
             final String MOVIE_BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/";
-            final String SECTION_URL = "in_theaters.json?";
             final String COUNTRY_PARAM = "country";
             final String API_KEY_PARAM = "apikey";
 
             Uri builtUri = Uri.parse(MOVIE_BASE_URL).buildUpon()
-                    .appendPath(SECTION_URL)
+                    .appendPath(sectionUrl + ".json?")
                     .appendQueryParameter(COUNTRY_PARAM, codeCountry)
                     .appendQueryParameter(API_KEY_PARAM, API_KEY)
                     .build();

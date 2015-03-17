@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gperez88.moviereleases.app.R;
+import com.gperez88.moviereleases.app.services.MovieService;
 import com.gperez88.moviereleases.app.tasks.MovieTask;
 
 /**
@@ -33,10 +34,11 @@ public class MoviesFragment extends Fragment {
 
     private void updateMovie() {
         MovieTask movieTask = new MovieTask(getActivity());
-        //TODO:mientras construyo la pantalla de setting.
-        String countryName = "dominican republic";
+        //TODO:mientras construyo la pantalla de setting. mejorar tambien forma de pasar la section
+
         String codeCountry = "do";
-        movieTask.execute(codeCountry,countryName);
+        String countryName = "dominican republic";
+        movieTask.execute(codeCountry,countryName, MovieService.SECTION_OPENING);
     }
 
 }

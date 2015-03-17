@@ -79,7 +79,7 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
             JSONObject movieJson = new JSONObject(movieJsonStr);
             JSONArray movieArray = movieJson.getJSONArray(MOVIES);
 
-            long countryId = addCountry(codeCountrySetting,countryNameSetting);
+            long countryId = addCountry(codeCountrySetting, countryNameSetting);
 
             Vector<ContentValues> cVVector = new Vector<>(movieArray.length());
 
@@ -135,16 +135,17 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... params) {
-        if (params.length == 0 && params.length < 2) {
+        if (params.length == 0 && params.length < 3) {
             return null;
         }
 
         String codeCountryQuery = params[0];
         String countryNameQuery = params[1];
+        String sectionUrlServiceQuery = params[2];
 
         try {
-            String movieJsonStr = MovieService.getMovies(codeCountryQuery);
-            getMovieDataFromJson(movieJsonStr, codeCountryQuery,countryNameQuery);
+            String movieJsonStr = MovieService.getMovies(codeCountryQuery, sectionUrlServiceQuery);
+            getMovieDataFromJson(movieJsonStr, codeCountryQuery, countryNameQuery);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(LOG_TAG, e.getMessage());

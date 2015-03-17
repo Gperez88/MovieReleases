@@ -67,6 +67,8 @@ public class MovieContract {
         public static final String COLUMN_RELEASE_DATE = "release_date";
         public static final String COLUMN_SYNOPSIS = "synopsis";
         public static final String COLUMN_COUNTRY_ID = "country_id";
+        public static final String COLUMN_SECTION = "section";
+
 
         public static Uri buildMovieUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
@@ -76,8 +78,17 @@ public class MovieContract {
             return CONTENT_URI.buildUpon().appendPath(codeCountrySetting).build();
         }
 
-        public static String getCountryFromUri(Uri uri) {
+        public static Uri buildMovieCountryWithSeccion(String codeCountrySetting, String section) {
+            return CONTENT_URI.buildUpon().appendPath(codeCountrySetting)
+                                          .appendPath(section).build();
+        }
+
+        public static String getCodeCountryFromUri(Uri uri) {
             return uri.getPathSegments().get(1);
+        }
+
+        public static String getSectionFromUri(Uri uri) {
+            return uri.getPathSegments().get(2);
         }
 
     };
