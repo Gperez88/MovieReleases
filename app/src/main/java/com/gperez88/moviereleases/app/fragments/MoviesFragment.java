@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gperez88.moviereleases.app.R;
-import com.gperez88.moviereleases.app.services.MovieService;
 import com.gperez88.moviereleases.app.tasks.MovieTask;
 
 /**
@@ -38,7 +37,7 @@ public class MoviesFragment extends Fragment {
 
         String codeCountry = "do";
         String countryName = "dominican republic";
-        movieTask.execute(codeCountry,countryName, MovieService.SECTION_OPENING);
+        movieTask.execute(codeCountry,countryName);
     }
 
 }

@@ -63,17 +63,18 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
         return countryId;
     }
 
-    public void getMovieDataFormJson(String[] jsonStrs, String codeCountrySetting, String countryNameSetting, String[] sections) throws JSONException {
+    public void getMovieDataFromJson(String[] jsonStrs, String codeCountrySetting, String countryNameSetting, String[] sections) throws JSONException {
         if (jsonStrs.length == 0 && sections.length == 0 && jsonStrs.length != sections.length)
             return;
 
+        long countryId = addCountry(codeCountrySetting, countryNameSetting);
+
         for (int i = 0; i < jsonStrs.length; i++) {
-            getMovieDataFromJson(jsonStrs[i], codeCountrySetting, countryNameSetting, sections[i]);
+            getMovieDataFromJson(jsonStrs[i], codeCountrySetting, countryNameSetting, countryId, sections[i]);
         }
     }
 
-    public void getMovieDataFromJson(String jsonStr, String codeCountrySetting, String countryNameSetting, String sectionUrl) throws JSONException {
-
+    public void getMovieDataFromJson(String jsonStr, String codeCountrySetting, String countryNameSetting, long countryId, String sectionUrl) throws JSONException {
         final String MOVIES = "movies";
 
         final String TITLE = "title";
@@ -87,8 +88,6 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
         try {
             JSONObject movieJson = new JSONObject(jsonStr);
             JSONArray movieArray = movieJson.getJSONArray(MOVIES);
-
-            long countryId = addCountry(codeCountrySetting, countryNameSetting);
 
             Vector<ContentValues> cVVector = new Vector<>(movieArray.length());
 
@@ -141,6 +140,19 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
         }
     }
 
+//    public int getTotalMovieFromJson(String jsonStr) {
+//        final String TOTAL = "total";
+//
+//        try {
+//            JSONObject movieJson = new JSONObject(jsonStr);
+//            return movieJson.getInt(TOTAL);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return 0;
+//    }
+
     @Override
     protected Void doInBackground(String... params) {
         if (params.length == 0 && params.length < 3) {
@@ -150,12 +162,15 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
         String codeCountryQuery = params[0];
         String countryNameQuery = params[1];
 
+        int limit = 50;
+        int page = 1;
+
         try {
 
-            String boxOfficeJsonStr = MovieService.getMoviesBoxOffice(codeCountryQuery);
-            String inTheatersJsonStr = MovieService.getMoviesInTheaters(codeCountryQuery);
-            String openingJsonStr = MovieService.getMoviesOpening(codeCountryQuery);
-            String upcomingJsonStr = MovieService.getMoviesUpComing(codeCountryQuery);
+            String boxOfficeJsonStr = MovieService.getMoviesBoxOffice(codeCountryQuery, limit);
+            String inTheatersJsonStr = MovieService.getMoviesInTheaters(codeCountryQuery, limit, page);
+            String openingJsonStr = MovieService.getMoviesOpening(codeCountryQuery, limit);
+            String upcomingJsonStr = MovieService.getMoviesUpComing(codeCountryQuery, limit, page);
 
             //json string for sections.
             String[] jsonStrs = {boxOfficeJsonStr, inTheatersJsonStr, openingJsonStr, upcomingJsonStr};
@@ -165,7 +180,26 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
                     MovieService.SECTION_OPENING,
                     MovieService.SECTION_UNCOMING};
 
-            getMovieDataFormJson(jsonStrs, codeCountryQuery, countryNameQuery, sections);
+            getMovieDataFromJson(jsonStrs, codeCountryQuery, countryNameQuery, sections);
+
+//            int pageLimit = 50;
+//            int totalPage = 1;
+//            int page = 1;
+//            do {
+//                String inTheatersJsonStr = MovieService.getMoviesInTheaters(codeCountryQuery, pageLimit, page);
+//
+//                getMovieDataFromJson(inTheatersJsonStr,codeCountryQuery, countryNameQuery,MovieService.SECTION_IN_THEATERS);
+//
+//                if(page == 1) {
+//                    int totalMovie = getTotalMovieFromJson(inTheatersJsonStr);
+//                    if (totalMovie > pageLimit) {
+//                        totalPage = MovieUtils.roundPage(new Float(totalMovie / pageLimit));
+//                    }
+//                }
+//                page++;
+//
+//            }while(page == totalPage);
+
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(LOG_TAG, e.getMessage());
