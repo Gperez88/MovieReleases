@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by GPEREZ on 3/14/2015.
  */
 public class MovieDbHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     static final String DATABASE_NAME = "movie.db";
 
@@ -21,8 +21,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_COUNTRY_TABLE = "CREATE TABLE " + MovieContract.CountryEntry.TABLE_NAME + " (" +
                 MovieContract.CountryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 MovieContract.CountryEntry.COLUMN_CODE + " TEXT NOT NULL, " +
-                MovieContract.CountryEntry.COLUMN_NAME + " TEXT NOT NULL, " +
-                " UNIQUE (" + MovieContract.CountryEntry.COLUMN_CODE + ") ON CONFLICT REPLACE);";
+                MovieContract.CountryEntry.COLUMN_NAME + " TEXT NOT NULL );";
 
         final String SQL_CREATE_MOVIE_TABLE = "CREATE TABLE " + MovieContract.MovieEntry.TABLE_NAME + " (" +
                 MovieContract.MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +

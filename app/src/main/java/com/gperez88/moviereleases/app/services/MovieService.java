@@ -18,7 +18,7 @@ public class MovieService {
 
     private static final String API_KEY = "5szncvhqdyhrkwecqsrtacwr";
 
-    public static String getMovies(String country){
+    public static String getMovies(String codeCountry){
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
@@ -30,7 +30,7 @@ public class MovieService {
             final String API_KEY_PARAM = "apikey";
 
             Uri builtUri = Uri.parse(MOVIE_BASE_URL).buildUpon()
-                    .appendQueryParameter(COUNTRY_PARAM, country)
+                    .appendQueryParameter(COUNTRY_PARAM, codeCountry)
                     .appendQueryParameter(API_KEY_PARAM, API_KEY)
                     .build();
 

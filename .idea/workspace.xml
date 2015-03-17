@@ -18,14 +18,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1dbfc3c7-ff13-4f2c-a310-689add8559c0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/services/MovieService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/tasks/MovieTask.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/fragments/MoviesFragment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/TestMovieTask.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestProvider.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/utils/MovieUtils.java" />
+      <change type="MOVED" beforePath="C:\Users\GPEREZ\AndroidStudioWorkspace\MovieReleases\app\src\main\java\com\gperez88\moviereleases\app\MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/activities/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieDbHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieDbHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/services/MovieService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/services/MovieService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/tasks/MovieTask.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/tasks/MovieTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/fragments/MoviesFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/fragments/MoviesFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestUtils.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -49,7 +49,41 @@
     <favorites_list name="MovieReleases" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="MovieContract.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="902" max-vertical-offset="1462">
+              <caret line="68" column="35" selection-start-line="68" selection-start-column="35" selection-end-line="68" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MovieTask.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/tasks/MovieTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6875" vertical-offset="958" max-vertical-offset="2669">
+              <caret line="81" column="64" selection-start-line="81" selection-start-column="64" selection-end-line="81" selection-end-column="64" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2765#2780#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MovieDbHelper.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieDbHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="39" max-vertical-offset="833">
+              <caret line="34" column="100" selection-start-line="34" selection-start-column="100" selection-end-line="34" selection-end-column="100" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -754,18 +788,19 @@
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/data/TestUtils.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/data/TestDB.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/data/MovieContract.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieDbHelper.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestDB.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieProvider.java" />
-        <option value="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestUtils.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestProvider.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/services/MovieService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/TestMovieTask.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/tasks/MovieTask.java" />
+        <option value="$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/utils/MovieUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/services/MovieService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/fragments/MoviesFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieDbHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/tasks/MovieTask.java" />
       </list>
     </option>
   </component>
@@ -857,6 +892,32 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MovieReleases" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -877,6 +938,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tasks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MovieReleases" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -934,6 +1017,28 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MovieReleases" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="manifests" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
             </PATH_ELEMENT>
@@ -960,6 +1065,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.gperez88.moviereleases.app.activities" />
       <recent name="com.gperez88.moviereleases.app" />
       <recent name="com.gperez88.moviereleases.app.data" />
     </key>
@@ -1189,9 +1295,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32993197" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1279,14 +1385,8 @@
           <properties />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/tasks/MovieTask.java</url>
-          <line>29</line>
-          <properties />
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/MainActivity.java</url>
-          <line>33</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/activities/MainActivity.java</url>
+          <line>34</line>
           <properties />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
@@ -1387,47 +1487,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40036562" vertical-offset="2" max-vertical-offset="1241">
-          <caret line="26" column="41" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
-          <folding>
-            <element signature="method#validateCursor#0;class#TestUtils#0" expanded="false" />
-            <element signature="method#validateCurrentRecord#0;class#TestUtils#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.45" vertical-offset="1470" max-vertical-offset="4624">
-          <caret line="266" column="0" selection-start-line="266" selection-start-column="0" selection-end-line="266" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieDbHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6357143" vertical-offset="222" max-vertical-offset="850">
-          <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/sdk/sources/android-21/android/content/ContentResolver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2402" max-vertical-offset="42058">
           <caret line="204" column="31" selection-start-line="204" selection-start-column="31" selection-end-line="204" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25892857" vertical-offset="365" max-vertical-offset="1462">
-          <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
           <folding />
         </state>
       </provider>
@@ -1470,8 +1533,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/services/MovieService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33214286" vertical-offset="154" max-vertical-offset="1479">
-          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.8232143" vertical-offset="117" max-vertical-offset="1479">
+          <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/activities/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63035715" vertical-offset="4" max-vertical-offset="1139">
+          <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/gperez88/moviereleases/app/data/TestUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7824497" vertical-offset="473" max-vertical-offset="1020">
+          <caret line="78" column="1" selection-start-line="78" selection-start-column="1" selection-end-line="78" selection-end-column="1" />
+          <folding>
+            <element signature="method#validateCursor#0;class#TestUtils#0" expanded="false" />
+            <element signature="method#validateCurrentRecord#0;class#TestUtils#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/utils/MovieUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66785717" vertical-offset="0" max-vertical-offset="560">
+          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.21071428" vertical-offset="407" max-vertical-offset="4624">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1480,32 +1582,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/fragments/MoviesFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45357144" vertical-offset="171" max-vertical-offset="799">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.75714284" vertical-offset="171" max-vertical-offset="765">
+          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#760#761#0" expanded="true" />
-            <element signature="e#789#790#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieContract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48035714" vertical-offset="258" max-vertical-offset="1139">
-          <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="42" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="902" max-vertical-offset="1462">
+          <caret line="68" column="35" selection-start-line="68" selection-start-column="35" selection-end-line="68" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/data/MovieDbHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="39" max-vertical-offset="833">
+          <caret line="34" column="100" selection-start-line="34" selection-start-column="100" selection-end-line="34" selection-end-column="100" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gperez88/moviereleases/app/tasks/MovieTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68214285" vertical-offset="111" max-vertical-offset="748">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.6875" vertical-offset="958" max-vertical-offset="2669">
+          <caret line="81" column="64" selection-start-line="81" selection-start-column="64" selection-end-line="81" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#447#448#0" expanded="true" />
-            <element signature="e#487#488#0" expanded="true" />
+            <element signature="e#2765#2780#0" expanded="true" />
           </folding>
         </state>
       </provider>

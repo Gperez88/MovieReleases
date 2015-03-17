@@ -9,9 +9,6 @@ import android.test.AndroidTestCase;
 import com.gperez88.moviereleases.app.data.MovieContract.CountryEntry;
 import com.gperez88.moviereleases.app.data.MovieContract.MovieEntry;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
@@ -78,18 +75,5 @@ public class TestUtils extends AndroidTestCase {
         assertTrue("Error: Failure to insert North Pole Location Values", countryRowId != -1);
 
         return countryRowId;
-    }
-
-
-    static Date formatDate(String dateStr) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-        try {
-            return formatter.parse(dateStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 }

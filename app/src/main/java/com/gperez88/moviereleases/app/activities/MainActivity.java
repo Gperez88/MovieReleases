@@ -1,10 +1,11 @@
-package com.gperez88.moviereleases.app;
+package com.gperez88.moviereleases.app.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.fragments.MoviesFragment;
 
 
@@ -12,13 +13,13 @@ public class MainActivity extends ActionBarActivity {
 
     private final String MOVIESFRAGMENT_TAG = "MOVIESFRAGMENTTAG";
 
-    private String mCountry;
+    private String mCodeCountry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //TODO:mientras construyo la pantalla de setting.
-        mCountry = "do";
+        mCodeCountry = "do";
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -31,14 +32,14 @@ public class MainActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         //TODO:mientras construyo la pantalla de setting.
-        String country = "do";
+        String codeCountry = "do";
 
-        if (country != null && !country.equals(mCountry)) {
+        if (codeCountry != null && !codeCountry.equals(mCodeCountry)) {
             MoviesFragment moviesFragment = (MoviesFragment)getSupportFragmentManager().findFragmentByTag(MOVIESFRAGMENT_TAG);
             if ( null != moviesFragment ) {
                 moviesFragment.onLocationChanged();
             }
-            mCountry = country;
+            mCodeCountry = codeCountry;
         }
     }
 

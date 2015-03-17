@@ -72,8 +72,8 @@ public class MovieContract {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
-        public static Uri buildMovieCountry(String countryStting) {
-            return CONTENT_URI.buildUpon().appendPath(countryStting).build();
+        public static Uri buildMovieCountry(String codeCountrySetting) {
+            return CONTENT_URI.buildUpon().appendPath(codeCountrySetting).build();
         }
 
         public static String getCountryFromUri(Uri uri) {
