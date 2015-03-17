@@ -21,14 +21,13 @@ public class MovieUtils {
         return null;
     }
 
-    //
-    public static int roundPage(Float value){
-        float decimal = Float.parseFloat(String.format("%.20f\n",value));
-
-        if(decimal > 0) {
-            return value.intValue() + 1;
-        }
-
-        return value.intValue();
-    }
+//    public static int roundPage(Float value){
+//        float decimal = Float.parseFloat(String.format("%.20f\n",value));
+//
+//        if(decimal > 0) {
+//            return value.intValue() + 1;
+//        }
+//
+//        return value.intValue();
+//    }
 }
