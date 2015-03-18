@@ -31,7 +31,7 @@ public class MovieProvider extends ContentProvider {
     static {
         movieQueryBuilder = new SQLiteQueryBuilder();
 
-        movieQueryBuilder.setTables(MovieEntry.TABLE_NAME + "INNER JOIN " +
+        movieQueryBuilder.setTables(MovieEntry.TABLE_NAME + " INNER JOIN " +
                 CountryEntry.TABLE_NAME +
                 " ON " + MovieEntry.TABLE_NAME +
                 "." + MovieEntry.COLUMN_COUNTRY_ID +

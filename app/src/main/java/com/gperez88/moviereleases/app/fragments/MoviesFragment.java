@@ -1,33 +1,92 @@
 package com.gperez88.moviereleases.app.fragments;
 
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.gperez88.moviereleases.app.R;
+import com.gperez88.moviereleases.app.adapters.MovieAdapter;
+import com.gperez88.moviereleases.app.data.MovieContract;
 import com.gperez88.moviereleases.app.tasks.MovieTask;
 
 /**
  * Created by GPEREZ on 3/16/2015.
  */
-public class MoviesFragment extends Fragment {
+public class MoviesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    private static final int MOVIE_LOADER = 0;
+    private static final String ARG_SECTION_MOVIE = "arg_section_movie";
+
+    //column's
+    private static final String[] MOVIE_COLUMNS = {
+            MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
+            MovieContract.MovieEntry.COLUMN_THUMBNAIL_URL,
+            MovieContract.MovieEntry.COLUMN_TITLE,
+            MovieContract.MovieEntry.COLUMN_YEAR,
+            MovieContract.MovieEntry.COLUMN_RELEASE_DATE,
+            MovieContract.MovieEntry.COLUMN_SYNOPSIS,
+            MovieContract.MovieEntry.COLUMN_COUNTRY_ID,
+            MovieContract.MovieEntry.COLUMN_SECTION
+    };
+
+    //indices column's
+    public static final int COL_MOVIE_ID = 0;
+    public static final int COL_MOVIE_THUMBNAIL_URL = 1;
+    public static final int COL_MOVIE_TITLE = 2;
+    public static final int COL_MOVIE_YEAR = 3;
+    public static final int COL_MOVIE_RELEASE_DATE = 4;
+    public static final int COL_MOVIE_SYNOPSIS = 5;
+    public static final int COL_MOVIE_COUNTRY_ID = 6;
+    public static final int COL_MOVIE_SECTION = 7;
+
+    private MovieAdapter movieAdapter;
 
     public MoviesFragment() {
     }
 
+    public static MoviesFragment create(String section) {
+        MoviesFragment moviesFragment = new MoviesFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_SECTION_MOVIE, section);
+
+        moviesFragment.setArguments(args);
+        return moviesFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //updateMovie();
+
+        movieAdapter = new MovieAdapter(getActivity(), null, 0);
+
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        //TODO:para probar.
-        updateMovie();
+        ListView listView = (ListView) rootView.findViewById(R.id.listview_movie);
+        listView.setAdapter(movieAdapter);
 
         return rootView;
     }
 
-    public void onLocationChanged( ) {
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        getLoaderManager().initLoader(MOVIE_LOADER, null, this);
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    public void onLocationChanged() {
         updateMovie();
     }
 
@@ -37,7 +96,35 @@ public class MoviesFragment extends Fragment {
 
         String codeCountry = "do";
         String countryName = "dominican republic";
-        movieTask.execute(codeCountry,countryName);
+        movieTask.execute(codeCountry, countryName);
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+//        String locationSetting = ForecastUtil.getPreferredLocation(getActivity());
+        String codeContrySetting = "do";
+        String sectionArg = getArguments().getString(ARG_SECTION_MOVIE);
+
+        // Sort order:  Ascending, by date.
+        String sortOrder = MovieContract.MovieEntry.COLUMN_YEAR + " DESC";
+        Uri weatherForLocationUri = MovieContract.MovieEntry.buildMovieCountryWithSeccion(
+                codeContrySetting, sectionArg);
+
+        return new CursorLoader(getActivity(),
+                weatherForLocationUri,
+                MOVIE_COLUMNS,
+                null,
+                null,
+                sortOrder);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        movieAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+        movieAdapter.swapCursor(null);
+    }
 }
