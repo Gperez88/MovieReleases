@@ -1,9 +1,11 @@
 package com.gperez88.moviereleases.app.adapters;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.fragments.MoviesFragment;
 import com.gperez88.moviereleases.app.services.MovieService;
 
@@ -18,8 +20,11 @@ public class MoviePagerAdapter extends FragmentPagerAdapter {
     public static final int POSITION_SECTION_OPENING = 2;
     public static final int POSITION_SECTION_UNCOMING = 3;
 
-    public MoviePagerAdapter(FragmentManager fm) {
+    private Context mContext;
+
+    public MoviePagerAdapter(Context mContext, FragmentManager fm) {
         super(fm);
+        this.mContext = mContext;
     }
 
     @Override
@@ -34,8 +39,18 @@ public class MoviePagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        // Generate title based on item position
-        return getSectionNameByPosition(position);
+        switch (position){
+            case POSITION_SECTION_BOX_OFFICE:
+                return mContext.getString(R.string.box_office).toUpperCase();
+            case POSITION_SECTION_IN_THEATERS:
+                return mContext.getString(R.string.in_theaters).toUpperCase();
+            case POSITION_SECTION_OPENING:
+                return mContext.getString(R.string.opening).toUpperCase();
+            case POSITION_SECTION_UNCOMING:
+                return mContext.getString(R.string.upcoming).toUpperCase();
+            default:
+                return null;
+        }
     }
 
     private String getSectionNameByPosition(int position){

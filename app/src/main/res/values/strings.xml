@@ -2,4 +2,10 @@
     <string name="app_name">MovieReleases</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    //section pager
+    <string name="box_office">box office</string>
+    <string name="in_theaters">in theaters</string>
+    <string name="opening">opening</string>
+    <string name="upcoming">upcoming</string>
 </resources>

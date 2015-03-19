@@ -47,11 +47,6 @@ public class SlidingTabLayout extends HorizontalScrollView {
          */
         int getDividerColor(int position);
 
-        /**
-         * @return return the color of the tab drawn to the right of {@code position}.
-         */
-        int getTabColor(int position);
-
     }
 
     private static final int TITLE_OFFSET_DIPS = 24;
@@ -94,7 +89,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
      * Set the custom {@link TabColorizer} to be used.
      *
      * If you only require simple custmisation then you can use
-     * {@link #setSelectedIndicatorColors(int...)}, {@link #setDividerColors(int...)} and {@link #seTabColors(int...)}to achieve
+     * {@link #setSelectedIndicatorColors(int...)} and {@link #setDividerColors(int...)} to achieve
      * similar effects.
      */
     public void setCustomTabColorizer(TabColorizer tabColorizer) {
@@ -115,14 +110,6 @@ public class SlidingTabLayout extends HorizontalScrollView {
      */
     public void setDividerColors(int... colors) {
         mTabStrip.setDividerColors(colors);
-    }
-
-    /**
-     * Sets the colors to be used for tab dividers. These colors are treated as a circular array.
-     * Providing one color will mean that all tabs are indicated with the same color.
-     */
-    public void seTabColors(int... colors) {
-        mTabStrip.seTabColors(colors);
     }
 
     /**

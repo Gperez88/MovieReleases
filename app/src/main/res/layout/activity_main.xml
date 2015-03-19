@@ -6,16 +6,20 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <include layout="@layout/toolbar" />
+
     <com.gperez88.moviereleases.app.utils.view.SlidingTabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/slidingTabLayout_movie" />
+        android:id="@+id/slidingTabLayout_movie"
+        android:background="@color/primary"
+        />
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
         android:id="@+id/viewPager_movie"
-        android:background="@android:color/white"/>
+        android:background="@color/primary_light" />
 
 </LinearLayout>
