@@ -68,7 +68,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //updateMovie();
+        updateMovie();
 
         movieAdapter = new MovieAdapter(getActivity(), null, 0);
 
