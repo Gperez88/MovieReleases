@@ -88,6 +88,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 
     public void onLocationChanged() {
         updateMovie();
+        getLoaderManager().restartLoader(MOVIE_LOADER, null, this);
     }
 
     private void updateMovie() {
