@@ -1,6 +1,7 @@
 package com.gperez88.moviereleases.app.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,7 +10,6 @@ import android.view.MenuItem;
 
 import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.adapters.MoviePagerAdapter;
-import com.gperez88.moviereleases.app.fragments.MoviesFragment;
 import com.gperez88.moviereleases.app.utils.view.SlidingTabLayout;
 
 
@@ -65,15 +65,19 @@ public class MainActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         //TODO:mientras construyo la pantalla de setting.
-        String codeCountry = "do";
-
-        if (codeCountry != null && !codeCountry.equals(mCodeCountry)) {
-            MoviesFragment moviesFragment = (MoviesFragment) getSupportFragmentManager().findFragmentByTag(MOVIESFRAGMENT_TAG);
-            if (null != moviesFragment) {
-                moviesFragment.onLocationChanged();
-            }
-            mCodeCountry = codeCountry;
-        }
+/*        MoviesFragment moviesFragment = (MoviesFragment) findFragmentByPosition(viewPagerMovie.getCurrentItem());
+        if (null != moviesFragment) {
+            moviesFragment.onLocationChanged();
+        }*/
+//        String codeCountry = "do";
+//
+//        if (codeCountry != null && !codeCountry.equals(mCodeCountry)) {
+//            MoviesFragment moviesFragment = (MoviesFragment) getSupportFragmentManager().findFragmentByTag(MOVIESFRAGMENT_TAG);
+//            if (null != moviesFragment) {
+//                moviesFragment.onLocationChanged();
+//            }
+//            mCodeCountry = codeCountry;
+//        }
     }
 
     @Override
@@ -91,5 +95,11 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private Fragment findFragmentByPosition(int position) {
+        return getSupportFragmentManager().findFragmentByTag(
+                "android:switcher:" + viewPagerMovie.getId() + ":"
+                        + moviePagerAdapter.getItemId(position));
     }
 }

@@ -2,6 +2,7 @@ package com.gperez88.moviereleases.app.data;
 
 import android.annotation.TargetApi;
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -22,8 +23,9 @@ public class MovieProvider extends ContentProvider {
     private MovieDbHelper mOpenHelper;
 
     static final int MOVIE = 100;
-    static final int MOVIE_WITH_COUNTRY = 101;
-    static final int MOVIE_WITH_COUNTRY_AND_SECTION = 102;
+    static final int MOVIE_BY_ID = 101;
+    static final int MOVIE_WITH_COUNTRY = 102;
+    static final int MOVIE_WITH_COUNTRY_AND_SECTION = 103;
     static final int COUNTRY = 300;
 
     private final static SQLiteQueryBuilder movieQueryBuilder;
@@ -39,6 +41,10 @@ public class MovieProvider extends ContentProvider {
                 "." + CountryEntry._ID);
     }
 
+    private static final String sMovieIdSelection =
+            MovieEntry.TABLE_NAME +
+                    "." + MovieEntry._ID + " = ?";
+
     private static final String sCountryCodeSelection =
             CountryEntry.TABLE_NAME +
                     "." + CountryEntry.COLUMN_CODE + " = ? ";
@@ -47,6 +53,25 @@ public class MovieProvider extends ContentProvider {
             CountryEntry.TABLE_NAME +
                     "." + CountryEntry.COLUMN_CODE + " = ? AND " +
                     MovieEntry.COLUMN_SECTION + " = ? ";
+
+    private Cursor getMovieById(Uri uri, String[] projection, String sortOrder) {
+        long movieId = ContentUris.parseId(uri);
+
+        String[] selectionArgs;
+        String selection;
+
+        selection = sMovieIdSelection;
+        selectionArgs = new String[]{Long.toString(movieId)};
+
+        return movieQueryBuilder.query(mOpenHelper.getReadableDatabase(),
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+        );
+    }
 
     private Cursor getMovieByCodeCountry(Uri uri, String[] projection, String sortOrder) {
         String countryCode = MovieEntry.getCodeCountryFromUri(uri);
@@ -99,6 +124,7 @@ public class MovieProvider extends ContentProvider {
 
         // For each type of URI you want to add, create a corresponding code.
         matcher.addURI(authority, MovieContract.PATH_MOVIE, MOVIE);
+        matcher.addURI(authority, MovieContract.PATH_MOVIE + "/#", MOVIE_BY_ID);
         matcher.addURI(authority, MovieContract.PATH_MOVIE + "/*", MOVIE_WITH_COUNTRY);
         matcher.addURI(authority, MovieContract.PATH_MOVIE + "/*/*", MOVIE_WITH_COUNTRY_AND_SECTION);
 
@@ -120,6 +146,8 @@ public class MovieProvider extends ContentProvider {
 
         switch (match) {
             // Student: Uncomment and fill out these two cases
+            case MOVIE_BY_ID:
+                return MovieEntry.CONTENT_ITEM_TYPE;
             case MOVIE_WITH_COUNTRY:
                 return MovieEntry.CONTENT_TYPE;
             case MOVIE_WITH_COUNTRY_AND_SECTION:
@@ -140,6 +168,11 @@ public class MovieProvider extends ContentProvider {
         Cursor retCursor;
         switch (sUriMatcher.match(uri)) {
 
+            // "movie/#"
+            case MOVIE_BY_ID:{
+                retCursor = getMovieById(uri,projection,sortOrder);
+                break;
+            }
             // "movie/*"
             case MOVIE_WITH_COUNTRY: {
                 retCursor = getMovieByCodeCountry(uri, projection, sortOrder);

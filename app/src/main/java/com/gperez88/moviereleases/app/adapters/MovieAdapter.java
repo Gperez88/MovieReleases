@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.fragments.MoviesFragment;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by GPEREZ on 3/17/2015.
  */
 public class MovieAdapter extends CursorAdapter {
+    public static final String TAG = MovieAdapter.class.getSimpleName();
 
     public static class ViewHolder {
         public final ImageView iconView;
@@ -47,7 +49,11 @@ public class MovieAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
-        viewHolder.iconView.setImageResource(R.mipmap.ic_launcher);
+        String url = cursor.getString(MoviesFragment.COL_MOVIE_THUMBNAIL_URL);
+
+        Picasso.with(mContext)
+                .load(url)
+                .into(viewHolder.iconView);
 
         String title = cursor.getString(MoviesFragment.COL_MOVIE_TITLE);
         viewHolder.titleView.setText(title);

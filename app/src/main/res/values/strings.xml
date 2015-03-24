@@ -3,9 +3,16 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    //label detail
+    <string name="label_title"><b>title</b></string>
+    <string name="label_year"><b>year</b></string>
+    <string name="label_synopsis"><b>synopsis</b></string>
+    <string name="label_date_release"><b>date release</b></string>
+
     //section pager
     <string name="box_office">box office</string>
     <string name="in_theaters">in theaters</string>
     <string name="opening">opening</string>
     <string name="upcoming">upcoming</string>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>

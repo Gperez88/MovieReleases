@@ -91,6 +91,14 @@ public class TestProvider extends AndroidTestCase {
         assertEquals("Error: the MovieEntry CONTENT_URI should return MovieEntry.CONTENT_TYPE",
                 MovieEntry.CONTENT_TYPE, type);
 
+        long movieId = 1L;
+        // content://com.gperez88.moviereleases.app/movie/1
+        type = mContext.getContentResolver().getType(
+                MovieEntry.buildMovieUri(movieId));
+        // vnd.android.cursor.dir/com.gperez88.moviereleases.app/movie
+        assertEquals("Error: the MovieEntry CONTENT_URI with movieId should return MovieEntry.CONTENT_ITEM_TYPE",
+                MovieEntry.CONTENT_ITEM_TYPE, type);
+
         String testCountry = "us";
         // content://com.gperez88.moviereleases.app/movie/us
         type = mContext.getContentResolver().getType(
@@ -129,6 +137,7 @@ public class TestProvider extends AndroidTestCase {
         assertTrue("Unable to Insert MovieEntry into the Database", weatherRowId != -1);
 
         db.close();
+
 
         // Test the basic content provider query
         Cursor weatherCursor = mContext.getContentResolver().query(

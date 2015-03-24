@@ -12,16 +12,26 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/MovieReleaseTheme.NoActionBar">
+            android:theme="@style/MovieReleaseTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
-            android:authorities="com.gperez88.moviereleases.app"
-            android:name=".data.MovieProvider" />
+            android:name=".data.MovieProvider"
+            android:authorities="com.gperez88.moviereleases.app" />
+
+        <activity
+            android:name=".activities.DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:parentActivityName=".activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gperez88.moviereleases.app.activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

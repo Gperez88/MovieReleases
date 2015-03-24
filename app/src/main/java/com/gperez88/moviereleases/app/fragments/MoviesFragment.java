@@ -1,5 +1,6 @@
 package com.gperez88.moviereleases.app.fragments;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,12 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.gperez88.moviereleases.app.R;
+import com.gperez88.moviereleases.app.activities.DetailActivity;
 import com.gperez88.moviereleases.app.adapters.MovieAdapter;
 import com.gperez88.moviereleases.app.data.MovieContract;
 import com.gperez88.moviereleases.app.tasks.MovieTask;
@@ -21,6 +25,7 @@ import com.gperez88.moviereleases.app.tasks.MovieTask;
  * Created by GPEREZ on 3/16/2015.
  */
 public class MoviesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    private static final String LOG_CAT = MoviesFragment.class.getSimpleName();
     private static final int MOVIE_LOADER = 0;
     private static final String ARG_SECTION_MOVIE = "arg_section_movie";
 
@@ -68,7 +73,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //updateMovie();
+        updateMovie();
 
         movieAdapter = new MovieAdapter(getActivity(), null, 0);
 
@@ -76,6 +81,24 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 
         ListView listView = (ListView) rootView.findViewById(R.id.listview_movie);
         listView.setAdapter(movieAdapter);
+
+        // We'll call our MainActivity
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                // CursorAdapter returns a cursor at the correct position for getItem(), or null
+                // if it cannot seek to that position.
+                Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
+                if (cursor != null) {
+                    Log.d(LOG_CAT, MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID)).toString());
+
+                    Intent intent = new Intent(getActivity(), DetailActivity.class)
+                            .setData(MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID)));
+                    startActivity(intent);
+                }
+            }
+        });
 
         return rootView;
     }

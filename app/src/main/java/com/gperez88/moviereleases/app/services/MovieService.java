@@ -28,10 +28,10 @@ public class MovieService {
 
     private static final String API_KEY = "5szncvhqdyhrkwecqsrtacwr";
 
-    public static final String SECTION_BOX_OFFICE = "box_office";
-    public static final String SECTION_IN_THEATERS = "in_theaters";
-    public static final String SECTION_OPENING = "opening";
-    public static final String SECTION_UNCOMING = "upcoming";
+    public static final String SECTION_BOX_OFFICE = "box_office.json";
+    public static final String SECTION_IN_THEATERS = "in_theaters.json";
+    public static final String SECTION_OPENING = "opening.json";
+    public static final String SECTION_UNCOMING = "upcoming.json";
 
     public static String getMoviesBoxOffice(String codeCountry, int limit) {
         Uri builtUri = generateBuiltUri(codeCountry, SECTION_BOX_OFFICE, limit);
@@ -80,7 +80,7 @@ public class MovieService {
         }
 
         Uri.Builder builtUri = Uri.parse(MOVIE_BASE_URL).buildUpon();
-        builtUri.appendPath(section + ".json?");
+        builtUri.appendEncodedPath(section);
 
         for (Map.Entry<String, String> entry : params.entrySet()) {
             builtUri.appendQueryParameter(entry.getKey(), entry.getValue());
