@@ -33,7 +33,7 @@ public class MainActivity extends ActionBarActivity {
         viewPagerMovie = (ViewPager) findViewById(R.id.viewPager_movie);
         viewPagerMovie.setAdapter(moviePagerAdapter);
         //TODO:mientras construyo la pantalla de setting.
-        mCodeCountry = "do";
+        mCodeCountry = "us";
 
         // Give the SlidingTabLayout the ViewPager
         SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.slidingTabLayout_movie);
