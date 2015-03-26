@@ -1,14 +1,10 @@
 package com.gperez88.moviereleases.app.tasks;
 
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.gperez88.moviereleases.app.data.MovieContract.CountryEntry;
 import com.gperez88.moviereleases.app.data.MovieContract.MovieEntry;
 import com.gperez88.moviereleases.app.services.MovieService;
 
@@ -33,34 +29,35 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
     public long addCountry(String codeCountrySetting, String countryName) {
         long countryId;
 
-        Cursor countryCursor = mContext.getContentResolver().query(
-                CountryEntry.CONTENT_URI,
-                new String[]{CountryEntry._ID},
-                CountryEntry.COLUMN_CODE + " = ?",
-                new String[]{codeCountrySetting},
-                null);
+//        Cursor countryCursor = mContext.getContentResolver().query(
+//                CountryEntry.CONTENT_URI,
+//                new String[]{CountryEntry._ID},
+//                CountryEntry.COLUMN_CODE + " = ?",
+//                new String[]{codeCountrySetting},
+//                null);
+//
+//        if (countryCursor.moveToFirst()) {
+//            int locationIdIndex = countryCursor.getColumnIndex(CountryEntry._ID);
+//            countryId = countryCursor.getLong(locationIdIndex);
+//        } else {
+//
+//            ContentValues countryValues = new ContentValues();
+//
+//            countryValues.put(CountryEntry.COLUMN_CODE, codeCountrySetting);
+//            countryValues.put(CountryEntry.COLUMN_NAME, countryName);
+//
+//            Uri insertedUri = mContext.getContentResolver().insert(
+//                    CountryEntry.CONTENT_URI,
+//                    countryValues
+//            );
+//
+//            countryId = ContentUris.parseId(insertedUri);
+//        }
+//
+//        countryCursor.close();
 
-        if (countryCursor.moveToFirst()) {
-            int locationIdIndex = countryCursor.getColumnIndex(CountryEntry._ID);
-            countryId = countryCursor.getLong(locationIdIndex);
-        } else {
-
-            ContentValues countryValues = new ContentValues();
-
-            countryValues.put(CountryEntry.COLUMN_CODE, codeCountrySetting);
-            countryValues.put(CountryEntry.COLUMN_NAME, countryName);
-
-            Uri insertedUri = mContext.getContentResolver().insert(
-                    CountryEntry.CONTENT_URI,
-                    countryValues
-            );
-
-            countryId = ContentUris.parseId(insertedUri);
-        }
-
-        countryCursor.close();
-
-        return countryId;
+//        return countryId;
+  return 0;
     }
 
     public void getMovieDataFromJson(String[] jsonStrs, String codeCountrySetting, String countryNameSetting, String[] sections) throws JSONException {
@@ -113,13 +110,13 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
 
                 ContentValues movieValues = new ContentValues();
 
-                movieValues.put(MovieEntry.COLUMN_TITLE, title);
-                movieValues.put(MovieEntry.COLUMN_YEAR, year);
-                movieValues.put(MovieEntry.COLUMN_RELEASE_DATE, releaseDates);
-                movieValues.put(MovieEntry.COLUMN_SYNOPSIS, synopsis);
-                movieValues.put(MovieEntry.COLUMN_THUMBNAIL_URL, thumbnailUrl);
-                movieValues.put(MovieEntry.COLUMN_COUNTRY_ID, countryId);
-                movieValues.put(MovieEntry.COLUMN_SECTION, sectionUrl);
+//                movieValues.put(MovieEntry.COLUMN_TITLE, title);
+//                movieValues.put(MovieEntry.COLUMN_YEAR, year);
+//                movieValues.put(MovieEntry.COLUMN_RELEASE_DATE, releaseDates);
+//                movieValues.put(MovieEntry.COLUMN_SYNOPSIS, synopsis);
+//                movieValues.put(MovieEntry.COLUMN_THUMBNAIL_URL, thumbnailUrl);
+//                movieValues.put(MovieEntry.COLUMN_COUNTRY_ID, countryId);
+//                movieValues.put(MovieEntry.COLUMN_SECTION, sectionUrl);
 
                 cVVector.add(movieValues);
             }

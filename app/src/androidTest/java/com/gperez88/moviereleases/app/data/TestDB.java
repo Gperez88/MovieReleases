@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
 import com.gperez88.moviereleases.app.data.MovieContract.MovieEntry;
-import com.gperez88.moviereleases.app.data.MovieContract.CountryEntry;
+import com.gperez88.moviereleases.app.data.MovieContract.TypeMovieEntry;
 
 import java.util.HashSet;
 
@@ -31,7 +31,7 @@ public class TestDB extends AndroidTestCase {
     public void testCreateDb() {
         final HashSet<String> tableNameHashSet = new HashSet<>();
         tableNameHashSet.add(MovieEntry.TABLE_NAME);
-        tableNameHashSet.add(CountryEntry.TABLE_NAME);
+        tableNameHashSet.add(TypeMovieEntry.TABLE_NAME);
 
         mContext.deleteDatabase(MovieDbHelper.DATABASE_NAME);
         SQLiteDatabase db = new MovieDbHelper(mContext).getWritableDatabase();
@@ -56,17 +56,16 @@ public class TestDB extends AndroidTestCase {
         db.close();
     }
 
-
-    public long testCountryTable() {
+    public long testTypeMovieTable() {
         MovieDbHelper movieDbHelper = new MovieDbHelper(mContext);
         SQLiteDatabase db = movieDbHelper.getWritableDatabase();
 
-        ContentValues contentValues = TestUtils.createTestCountryValues();
+        ContentValues contentValues = TestUtils.createTestTypeMovieValues();
 
-        long countryRowId;
-        countryRowId = db.insert(CountryEntry.TABLE_NAME, null, contentValues);
+        long typeMovieRowId;
+        typeMovieRowId = db.insert(TypeMovieEntry.TABLE_NAME, null, contentValues);
 
-        assertTrue(countryRowId != -1);
+        assertTrue(typeMovieRowId != -1);
 
         // Data's inserted.  IN THEORY.  Now pull some out to stare at it and verify it made
         // the round trip.
@@ -74,7 +73,7 @@ public class TestDB extends AndroidTestCase {
         // Fourth Step: Query the database and receive a Cursor back
         // A cursor is your primary interface to the query results.
         Cursor cursor = db.query(
-                CountryEntry.TABLE_NAME,  // Table to Query
+                TypeMovieEntry.TABLE_NAME,  // Table to Query
                 null, // all columns
                 null, // Columns for the "where" clause
                 null, // Values for the "where" clause
@@ -85,12 +84,12 @@ public class TestDB extends AndroidTestCase {
 
         // Move the cursor to a valid database row and check to see if we got any records back
         // from the query
-        assertTrue("Error: No Records returned from location query", cursor.moveToFirst());
+        assertTrue("Error: No Records returned from type movie query", cursor.moveToFirst());
 
         // Fifth Step: Validate data in resulting Cursor with the original ContentValues
         // (you can use the validateCurrentRecord function in TestUtilities to validate the
         // query if you like)
-        TestUtils.validateCurrentRecord("Error: Location Query Validation Failed",
+        TestUtils.validateCurrentRecord("Error: Type movie Query Validation Failed",
                 cursor, contentValues);
 
         // Move the cursor to demonstrate that there is only one record in the database
@@ -101,15 +100,14 @@ public class TestDB extends AndroidTestCase {
         cursor.close();
         db.close();
 
-        return countryRowId;
+        return typeMovieRowId;
     }
 
     public void testMovieTable() {
-        long countryRowId = testCountryTable();
-        String section = "opening";
+        long typeMovieRowId = testTypeMovieTable();
 
         // Make sure we have a valid row ID.
-        assertFalse("Error: Country Not Inserted Correctly", countryRowId == -1L);
+        assertFalse("Error: Type Movie Not Inserted Correctly", typeMovieRowId == -1L);
 
         // First step: Get reference to writable database
         // If there's an error in those massive SQL table creation Strings,
@@ -118,7 +116,7 @@ public class TestDB extends AndroidTestCase {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Second Step (Movie): Create movie values
-        ContentValues weatherValues = TestUtils.createTestMovieValues(countryRowId, section);
+        ContentValues weatherValues = TestUtils.createTestMovieValues(typeMovieRowId);
 
         // Third Step (Movie): Insert ContentValues into database and get a row ID back
         long movieRowId = db.insert(MovieEntry.TABLE_NAME, null, weatherValues);

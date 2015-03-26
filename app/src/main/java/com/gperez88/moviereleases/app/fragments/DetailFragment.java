@@ -30,11 +30,11 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
             MovieContract.MovieEntry.COLUMN_THUMBNAIL_URL,
             MovieContract.MovieEntry.COLUMN_TITLE,
-            MovieContract.MovieEntry.COLUMN_YEAR,
+//            MovieContract.MovieEntry.COLUMN_YEAR,
             MovieContract.MovieEntry.COLUMN_RELEASE_DATE,
             MovieContract.MovieEntry.COLUMN_SYNOPSIS,
-            MovieContract.MovieEntry.COLUMN_COUNTRY_ID,
-            MovieContract.MovieEntry.COLUMN_SECTION
+//            MovieContract.MovieEntry.COLUMN_COUNTRY_ID,
+//            MovieContract.MovieEntry.COLUMN_SECTION
     };
 
     //indices column's

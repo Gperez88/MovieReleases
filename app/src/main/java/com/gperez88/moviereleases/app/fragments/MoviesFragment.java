@@ -34,11 +34,11 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
             MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
             MovieContract.MovieEntry.COLUMN_THUMBNAIL_URL,
             MovieContract.MovieEntry.COLUMN_TITLE,
-            MovieContract.MovieEntry.COLUMN_YEAR,
+//            MovieContract.MovieEntry.COLUMN_YEAR,
             MovieContract.MovieEntry.COLUMN_RELEASE_DATE,
             MovieContract.MovieEntry.COLUMN_SYNOPSIS,
-            MovieContract.MovieEntry.COLUMN_COUNTRY_ID,
-            MovieContract.MovieEntry.COLUMN_SECTION
+//            MovieContract.MovieEntry.COLUMN_COUNTRY_ID,
+//            MovieContract.MovieEntry.COLUMN_SECTION
     };
 
     //indices column's
@@ -73,7 +73,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        updateMovie();
+       // updateMovie();
 
         movieAdapter = new MovieAdapter(getActivity(), null, 0);
 
@@ -130,9 +130,9 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
         String sectionArg = getArguments().getString(ARG_SECTION_MOVIE);
 
         // Sort order:  Ascending, by date.
-        String sortOrder = MovieContract.MovieEntry.COLUMN_YEAR + " DESC";
-        Uri weatherForLocationUri = MovieContract.MovieEntry.buildMovieCountryWithSeccion(
-                codeContrySetting, sectionArg);
+        String sortOrder = "";//MovieContract.MovieEntry.COLUMN_YEAR + " DESC";
+        Uri weatherForLocationUri = null;//MovieContract.MovieEntry.buildMovieCountryWithSeccion(
+                //codeContrySetting, sectionArg);
 
         return new CursorLoader(getActivity(),
                 weatherForLocationUri,
