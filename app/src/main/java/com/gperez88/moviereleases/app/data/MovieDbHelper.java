@@ -18,10 +18,10 @@ public class MovieDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String SQL_CREATE_TYPE_MOVIE_TABLE = "CREATE TABLE " + MovieContract.TypeMovieEntry.TABLE_NAME + " (" +
-                MovieContract.TypeMovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                MovieContract.TypeMovieEntry.COLUMN_TYPE + " TEXT NOT NULL, " +
-                MovieContract.TypeMovieEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL );";
+        final String SQL_CREATE_TYPE_MOVIE_TABLE = "CREATE TABLE " + MovieContract.MovieTypeEntry.TABLE_NAME + " (" +
+                MovieContract.MovieTypeEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                MovieContract.MovieTypeEntry.COLUMN_TYPE + " TEXT NOT NULL, " +
+                MovieContract.MovieTypeEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL );";
 
         final String SQL_CREATE_MOVIE_TABLE = "CREATE TABLE " + MovieContract.MovieEntry.TABLE_NAME + " (" +
                 MovieContract.MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -32,7 +32,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
                 MovieContract.MovieEntry.COLUMN_DURATION + " INTEGER NOT NULL, " +
                 MovieContract.MovieEntry.COLUMN_TYPE_MOVIE_ID + " INTEGER NOT NULL, " +
                 " FOREIGN KEY (" + MovieContract.MovieEntry.COLUMN_TYPE_MOVIE_ID + ") REFERENCES " +
-                MovieContract.TypeMovieEntry.TABLE_NAME + " (" + MovieContract.TypeMovieEntry._ID + "), " +
+                MovieContract.MovieTypeEntry.TABLE_NAME + " (" + MovieContract.MovieTypeEntry._ID + "), " +
                 " UNIQUE (" + MovieContract.MovieEntry.COLUMN_TITLE + ", " +
                 MovieContract.MovieEntry.COLUMN_RELEASE_DATE + ", " +
                 MovieContract.MovieEntry.COLUMN_DURATION + ", " +
@@ -45,7 +45,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + MovieContract.MovieEntry.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + MovieContract.TypeMovieEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + MovieContract.MovieTypeEntry.TABLE_NAME);
         onCreate(db);
     }
 }

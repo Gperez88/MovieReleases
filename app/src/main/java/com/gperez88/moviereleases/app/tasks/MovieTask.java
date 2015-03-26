@@ -21,7 +21,7 @@ import java.util.Vector;
 /**
  * Created by GPEREZ on 3/16/2015.
  */
-public class MovieTask extends AsyncTask<String, Void, Void> {
+public class MovieTask extends AsyncTask<Void, Void, Void> {
     private final String LOG_TAG = MovieTask.class.getSimpleName();
 
     private final Context mContext;
@@ -63,7 +63,52 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
         return movieTypeId;
     }
 
-    public void getMovieDataFromJson(String jsonStr) throws JSONException {
+    public void insertMovieTypeFromJson(String movieTypeJsonStr) throws JSONException {
+        final String TYPE = "type";
+        final String DESCRIPTION = "description";
+
+        if (movieTypeJsonStr == null)
+            return;
+
+        try {
+            JSONArray movieTypeArrayJson = new JSONArray(movieTypeJsonStr);
+
+            Vector<ContentValues> cVVector = new Vector<>(movieTypeArrayJson.length());
+
+            for (int i = 0; i < movieTypeArrayJson.length(); i++) {
+
+                String type;
+                String description;
+
+                JSONObject movie = movieTypeArrayJson.getJSONObject(i);
+
+                type = movie.getString(TYPE);
+                description = movie.getString(DESCRIPTION);
+
+                ContentValues movieValues = new ContentValues();
+
+                movieValues.put(MovieTypeEntry.COLUMN_TYPE, type);
+                movieValues.put(MovieTypeEntry.COLUMN_DESCRIPTION, description);
+                cVVector.add(movieValues);
+            }
+
+            int inserted = 0;
+            // add to database
+            if (cVVector.size() > 0) {
+                ContentValues[] cvArray = new ContentValues[cVVector.size()];
+                cVVector.toArray(cvArray);
+                inserted = mContext.getContentResolver().bulkInsert(MovieTypeEntry.CONTENT_URI, cvArray);
+            }
+
+            Log.d(LOG_TAG, "MovieTask Complete. " + inserted + " MovieType Inserted");
+
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, e.getMessage(), e);
+            e.printStackTrace();
+        }
+    }
+
+    public void insertMovieDataFromJson(String movieJsonStr) throws JSONException {
 
         final String TITLE = "title";
         final String THUMBNAIL_URL = "thumbnail_url";
@@ -72,11 +117,11 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
         final String DURATION = "duration";
         final String MOVIE_TYPE_ID = "type_id";
 
-        if(jsonStr == null)
+        if (movieJsonStr == null)
             return;
 
         try {
-            JSONArray movieArrayJson = new JSONArray(jsonStr);
+            JSONArray movieArrayJson = new JSONArray(movieJsonStr);
 
             Vector<ContentValues> cVVector = new Vector<>(movieArrayJson.length());
 
@@ -119,7 +164,7 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
                 inserted = mContext.getContentResolver().bulkInsert(MovieEntry.CONTENT_URI, cvArray);
             }
 
-            Log.d(LOG_TAG, "MovieTask Complete. " + inserted + " Inserted");
+            Log.d(LOG_TAG, "MovieTask Complete. " + inserted + " Movie Inserted");
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
@@ -128,35 +173,14 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(String... params) {
-        if (params.length == 0 && params.length < 3) {
-            return null;
-        }
-
+    protected Void doInBackground(Void... params) {
         try {
 
-            String movieJsonStr = MovieService.callMovieListService();
             String movieTypeJsonStr = MovieService.callMovieTypeListService();
+            String movieJsonStr = MovieService.callMovieListService();
 
-            //getMovieDataFromJson(jsonStrs, codeCountryQuery, countryNameQuery, sections);
-
-//            int pageLimit = 50;
-//            int totalPage = 1;
-//            int page = 1;
-//            do {
-//                String inTheatersJsonStr = MovieService.getMoviesInTheaters(codeCountryQuery, pageLimit, page);
-//
-//                getMovieDataFromJson(inTheatersJsonStr,codeCountryQuery, countryNameQuery,MovieService.SECTION_IN_THEATERS);
-//
-//                if(page == 1) {
-//                    int totalMovie = getTotalMovieFromJson(inTheatersJsonStr);
-//                    if (totalMovie > pageLimit) {
-//                        totalPage = MovieUtils.roundPage(new Float(totalMovie / pageLimit));
-//                    }
-//                }
-//                page++;
-//
-//            }while(page == totalPage);
+            insertMovieDataFromJson(movieTypeJsonStr);
+            insertMovieTypeFromJson(movieJsonStr);
 
         } catch (Exception e) {
             e.printStackTrace();
