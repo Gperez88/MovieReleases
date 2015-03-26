@@ -1,11 +1,15 @@
 package com.gperez88.moviereleases.app.tasks;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.gperez88.moviereleases.app.data.MovieContract.MovieEntry;
+import com.gperez88.moviereleases.app.data.MovieContract.MovieTypeEntry;
 import com.gperez88.moviereleases.app.services.MovieService;
 
 import org.json.JSONArray;
@@ -26,97 +30,83 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
         this.mContext = mContext;
     }
 
-    public long addCountry(String codeCountrySetting, String countryName) {
-        long countryId;
+    public long addMovieType(String movieTypeString) {
+        long movieTypeId;
 
-//        Cursor countryCursor = mContext.getContentResolver().query(
-//                CountryEntry.CONTENT_URI,
-//                new String[]{CountryEntry._ID},
-//                CountryEntry.COLUMN_CODE + " = ?",
-//                new String[]{codeCountrySetting},
-//                null);
-//
-//        if (countryCursor.moveToFirst()) {
-//            int locationIdIndex = countryCursor.getColumnIndex(CountryEntry._ID);
-//            countryId = countryCursor.getLong(locationIdIndex);
-//        } else {
-//
-//            ContentValues countryValues = new ContentValues();
-//
-//            countryValues.put(CountryEntry.COLUMN_CODE, codeCountrySetting);
-//            countryValues.put(CountryEntry.COLUMN_NAME, countryName);
-//
-//            Uri insertedUri = mContext.getContentResolver().insert(
-//                    CountryEntry.CONTENT_URI,
-//                    countryValues
-//            );
-//
-//            countryId = ContentUris.parseId(insertedUri);
-//        }
-//
-//        countryCursor.close();
+        Cursor movieTypeCursor = mContext.getContentResolver().query(
+                MovieTypeEntry.CONTENT_URI,
+                new String[]{MovieTypeEntry._ID},
+                MovieTypeEntry.COLUMN_TYPE + " = ?",
+                new String[]{movieTypeString},
+                null);
 
-//        return countryId;
-  return 0;
-    }
+        if (movieTypeCursor.moveToFirst()) {
+            int movieTypeIdIndex = movieTypeCursor.getColumnIndex(MovieTypeEntry._ID);
+            movieTypeId = movieTypeCursor.getLong(movieTypeIdIndex);
+        } else {
 
-    public void getMovieDataFromJson(String[] jsonStrs, String codeCountrySetting, String countryNameSetting, String[] sections) throws JSONException {
-        if (jsonStrs.length == 0 && sections.length == 0 && jsonStrs.length != sections.length)
-            return;
+            ContentValues movieTypeValues = new ContentValues();
 
-        long countryId = addCountry(codeCountrySetting, countryNameSetting);
+            movieTypeValues.put(MovieTypeEntry.COLUMN_TYPE, movieTypeString);
+            movieTypeValues.put(MovieTypeEntry.COLUMN_DESCRIPTION, movieTypeString);
 
-        for (int i = 0; i < jsonStrs.length; i++) {
-            getMovieDataFromJson(jsonStrs[i], codeCountrySetting, countryNameSetting, countryId, sections[i]);
+            Uri insertedUri = mContext.getContentResolver().insert(
+                    MovieTypeEntry.CONTENT_URI,
+                    movieTypeValues
+            );
+
+            movieTypeId = ContentUris.parseId(insertedUri);
         }
+
+        movieTypeCursor.close();
+
+        return movieTypeId;
     }
 
-    public void getMovieDataFromJson(String jsonStr, String codeCountrySetting, String countryNameSetting, long countryId, String sectionUrl) throws JSONException {
-        final String MOVIES = "movies";
+    public void getMovieDataFromJson(String jsonStr) throws JSONException {
 
         final String TITLE = "title";
-        final String YEAR = "year";
-        final String RELEASE_DATES = "release_dates";
-        final String RELEASE_DATES_THEATER = "theater";
+        final String THUMBNAIL_URL = "thumbnail_url";
         final String SYNOPSIS = "synopsis";
-        final String POSTERS = "posters";
-        final String THUMBNAIL = "thumbnail";
+        final String RELEASE_DATES = "release_dates";
+        final String DURATION = "duration";
+        final String MOVIE_TYPE_ID = "type_id";
+
+        if(jsonStr == null)
+            return;
 
         try {
-            JSONObject movieJson = new JSONObject(jsonStr);
-            JSONArray movieArray = movieJson.getJSONArray(MOVIES);
+            JSONArray movieArrayJson = new JSONArray(jsonStr);
 
-            Vector<ContentValues> cVVector = new Vector<>(movieArray.length());
+            Vector<ContentValues> cVVector = new Vector<>(movieArrayJson.length());
 
-            for (int i = 0; i < movieArray.length(); i++) {
+            for (int i = 0; i < movieArrayJson.length(); i++) {
 
                 String title;
-                int year;
-                String releaseDates;
-                String synopsis;
                 String thumbnailUrl;
+                String synopsis;
+                String releaseDates;
+                String duration;
+                long movieTypeId;
 
-                JSONObject movie = movieArray.getJSONObject(i);
+                JSONObject movie = movieArrayJson.getJSONObject(i);
 
                 title = movie.getString(TITLE);
-                year = movie.getInt(YEAR);
+                thumbnailUrl = movie.getString(THUMBNAIL_URL);
                 synopsis = movie.getString(SYNOPSIS);
+                releaseDates = movie.getString(RELEASE_DATES);
+                duration = movie.getString(DURATION);
+                movieTypeId = movie.getLong(MOVIE_TYPE_ID);
 
-                JSONObject releaseDatesJson = movie.getJSONObject(RELEASE_DATES);
-                releaseDates = releaseDatesJson.getString(RELEASE_DATES_THEATER);
-
-                JSONObject thumbnailUrlJson = movie.getJSONObject(POSTERS);
-                thumbnailUrl = thumbnailUrlJson.getString(THUMBNAIL);
 
                 ContentValues movieValues = new ContentValues();
 
-//                movieValues.put(MovieEntry.COLUMN_TITLE, title);
-//                movieValues.put(MovieEntry.COLUMN_YEAR, year);
-//                movieValues.put(MovieEntry.COLUMN_RELEASE_DATE, releaseDates);
-//                movieValues.put(MovieEntry.COLUMN_SYNOPSIS, synopsis);
-//                movieValues.put(MovieEntry.COLUMN_THUMBNAIL_URL, thumbnailUrl);
-//                movieValues.put(MovieEntry.COLUMN_COUNTRY_ID, countryId);
-//                movieValues.put(MovieEntry.COLUMN_SECTION, sectionUrl);
+                movieValues.put(MovieEntry.COLUMN_TITLE, title);
+                movieValues.put(MovieEntry.COLUMN_THUMBNAIL_URL, thumbnailUrl);
+                movieValues.put(MovieEntry.COLUMN_SYNOPSIS, synopsis);
+                movieValues.put(MovieEntry.COLUMN_RELEASE_DATE, releaseDates);
+                movieValues.put(MovieEntry.COLUMN_DURATION, duration);
+                movieValues.put(MovieEntry.COLUMN_TYPE_MOVIE_ID, movieTypeId);
 
                 cVVector.add(movieValues);
             }
@@ -137,47 +127,18 @@ public class MovieTask extends AsyncTask<String, Void, Void> {
         }
     }
 
-//    public int getTotalMovieFromJson(String jsonStr) {
-//        final String TOTAL = "total";
-//
-//        try {
-//            JSONObject movieJson = new JSONObject(jsonStr);
-//            return movieJson.getInt(TOTAL);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return 0;
-//    }
-
     @Override
     protected Void doInBackground(String... params) {
         if (params.length == 0 && params.length < 3) {
             return null;
         }
 
-        String codeCountryQuery = params[0];
-        String countryNameQuery = params[1];
-
-        int limit = 50;
-        int page = 1;
-
         try {
 
-            String boxOfficeJsonStr = MovieService.getMoviesBoxOffice(codeCountryQuery, limit);
-            String inTheatersJsonStr = MovieService.getMoviesInTheaters(codeCountryQuery, limit, page);
-            String openingJsonStr = MovieService.getMoviesOpening(codeCountryQuery, limit);
-            String upcomingJsonStr = MovieService.getMoviesUpComing(codeCountryQuery, limit, page);
+            String movieJsonStr = MovieService.callMovieListService();
+            String movieTypeJsonStr = MovieService.callMovieTypeListService();
 
-            //json string for sections.
-            String[] jsonStrs = {boxOfficeJsonStr, inTheatersJsonStr, openingJsonStr, upcomingJsonStr};
-            //sections.
-            String[] sections = {MovieService.SECTION_BOX_OFFICE,
-                    MovieService.SECTION_IN_THEATERS,
-                    MovieService.SECTION_OPENING,
-                    MovieService.SECTION_UNCOMING};
-
-            getMovieDataFromJson(jsonStrs, codeCountryQuery, countryNameQuery, sections);
+            //getMovieDataFromJson(jsonStrs, codeCountryQuery, countryNameQuery, sections);
 
 //            int pageLimit = 50;
 //            int totalPage = 1;

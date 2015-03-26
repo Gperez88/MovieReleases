@@ -9,8 +9,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by GPEREZ on 3/16/2015.
@@ -18,88 +16,39 @@ import java.util.Map;
 public class MovieService {
     private static final String LOG_TAG = MovieService.class.getSimpleName();
 
-    //http://api.rottentomatoes.com
-    private static final String MOVIE_BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/";
-    private static final String LIMIT_PARAM = "limit";
-    private static final String PAGE_LIMIT_PARAM = "page_limit";
-    private static final String PAGE_PARAM = "page";
-    private static final String COUNTRY_PARAM = "country";
+    //http://perezgabriel89.com/movie/api/v1.0/
+    private static final String MOVIE_BASE_URL = "http://perezgabriel89.com/movie/api/v1.0/";
     private static final String API_KEY_PARAM = "apikey";
 
-    private static final String API_KEY = "5szncvhqdyhrkwecqsrtacwr";
+    private static final String API_KEY = "zs1pv@movieusrs@1988";
 
-    public static final String SECTION_BOX_OFFICE = "box_office.json";
-    public static final String SECTION_IN_THEATERS = "in_theaters.json";
-    public static final String SECTION_OPENING = "opening.json";
-    public static final String SECTION_UNCOMING = "upcoming.json";
+    private static final String MOVIE_LIST = "movie";
+    private static final String MOVIE_TYPE_LIST = "type_movie";
 
-    public static String getMoviesBoxOffice(String codeCountry, int limit) {
-        Uri builtUri = generateBuiltUri(codeCountry, SECTION_BOX_OFFICE, limit);
-        return callBaseService(builtUri);
+    public static String callMovieListService(){
+        return callBaseService(MOVIE_LIST);
     }
 
-    public static String getMoviesInTheaters(String codeCountry, int pageLimit, int page) {
-        Uri builtUri = generateBuiltUri(codeCountry, SECTION_IN_THEATERS, pageLimit, page);
-        return callBaseService(builtUri);
+    public static String callMovieTypeListService(){
+        return callBaseService(MOVIE_TYPE_LIST);
     }
 
-    public static String getMoviesOpening(String codeCountry, int limit) {
-        Uri builtUri = generateBuiltUri(codeCountry, SECTION_OPENING, limit);
-        return callBaseService(builtUri);
-    }
-
-    public static String getMoviesUpComing(String codeCountry, int pageLimit, int page) {
-        Uri builtUri = generateBuiltUri(codeCountry, SECTION_UNCOMING, pageLimit, page);
-        return callBaseService(builtUri);
-    }
-
-    //overload
-    private static Uri generateBuiltUri(String codeCountry, String section, int limit) {
-        return generateBuiltUri(codeCountry, section, 0, 0, limit);
-    }
-
-    //overload
-    private static Uri generateBuiltUri(String codeCountry, String section, int pageLimit, int page) {
-        return generateBuiltUri(codeCountry, section, pageLimit, page, 0);
-    }
-
-    private static Uri generateBuiltUri(String codeCountry, String section, int pageLimit, int page, int limit) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put(COUNTRY_PARAM, codeCountry);
-        params.put(API_KEY_PARAM, API_KEY);
-
-        //if it is zero, it is not receiving these parameters.
-        if (pageLimit > 0 && page > 0) {
-            params.put(PAGE_LIMIT_PARAM, Integer.toString(pageLimit));
-            params.put(PAGE_PARAM, Integer.toString(page));
-        }
-
-        //if it is zero, it is no receiving these parameter.
-        if (limit > 0) {
-            params.put(LIMIT_PARAM, Integer.toString(limit));
-        }
-
-        Uri.Builder builtUri = Uri.parse(MOVIE_BASE_URL).buildUpon();
-        builtUri.appendEncodedPath(section);
-
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            builtUri.appendQueryParameter(entry.getKey(), entry.getValue());
-        }
-
-        return builtUri.build();
-    }
-
-    private static String callBaseService(Uri uri) {
+    private static String callBaseService(String appendPathString) {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
-        String moviesJsonStr = null;
+        String jsonStr = null;
 
         try {
 
-            URL url = new URL(uri.toString());
+            Uri builtUri = Uri.parse(MOVIE_BASE_URL).buildUpon()
+                    .appendEncodedPath(appendPathString)
+                    .appendQueryParameter(API_KEY_PARAM,API_KEY)
+                    .build();
 
-            Log.v(LOG_TAG, "Buit URI " + uri.toString());
+            URL url = new URL(builtUri.toString());
+
+            Log.v(LOG_TAG, "Buit URI " + builtUri.toString());
 
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
@@ -120,9 +69,9 @@ public class MovieService {
             if (buffer.length() == 0) {
                 return null;
             }
-            moviesJsonStr = buffer.toString();
+            jsonStr = buffer.toString();
 
-            Log.v(LOG_TAG, "Movie JSON String: " + moviesJsonStr);
+            Log.v(LOG_TAG, "Movie JSON String: " + jsonStr);
 
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
@@ -139,6 +88,6 @@ public class MovieService {
                 }
             }
         }
-        return moviesJsonStr;
+        return jsonStr;
     }
 }

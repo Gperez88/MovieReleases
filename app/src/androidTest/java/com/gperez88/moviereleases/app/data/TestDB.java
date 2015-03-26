@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
 import com.gperez88.moviereleases.app.data.MovieContract.MovieEntry;
-import com.gperez88.moviereleases.app.data.MovieContract.TypeMovieEntry;
+import com.gperez88.moviereleases.app.data.MovieContract.MovieTypeEntry;
 
 import java.util.HashSet;
 
@@ -31,7 +31,7 @@ public class TestDB extends AndroidTestCase {
     public void testCreateDb() {
         final HashSet<String> tableNameHashSet = new HashSet<>();
         tableNameHashSet.add(MovieEntry.TABLE_NAME);
-        tableNameHashSet.add(TypeMovieEntry.TABLE_NAME);
+        tableNameHashSet.add(MovieTypeEntry.TABLE_NAME);
 
         mContext.deleteDatabase(MovieDbHelper.DATABASE_NAME);
         SQLiteDatabase db = new MovieDbHelper(mContext).getWritableDatabase();
@@ -63,7 +63,7 @@ public class TestDB extends AndroidTestCase {
         ContentValues contentValues = TestUtils.createTestTypeMovieValues();
 
         long typeMovieRowId;
-        typeMovieRowId = db.insert(TypeMovieEntry.TABLE_NAME, null, contentValues);
+        typeMovieRowId = db.insert(MovieTypeEntry.TABLE_NAME, null, contentValues);
 
         assertTrue(typeMovieRowId != -1);
 
@@ -73,7 +73,7 @@ public class TestDB extends AndroidTestCase {
         // Fourth Step: Query the database and receive a Cursor back
         // A cursor is your primary interface to the query results.
         Cursor cursor = db.query(
-                TypeMovieEntry.TABLE_NAME,  // Table to Query
+                MovieTypeEntry.TABLE_NAME,  // Table to Query
                 null, // all columns
                 null, // Columns for the "where" clause
                 null, // Values for the "where" clause

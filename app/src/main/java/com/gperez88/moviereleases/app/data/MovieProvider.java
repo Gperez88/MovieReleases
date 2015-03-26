@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 import com.gperez88.moviereleases.app.data.MovieContract.MovieEntry;
-import com.gperez88.moviereleases.app.data.MovieContract.TypeMovieEntry;
+import com.gperez88.moviereleases.app.data.MovieContract.MovieTypeEntry;
 
 /**
  * Created by GPEREZ on 3/14/2015.
@@ -33,11 +33,11 @@ public class MovieProvider extends ContentProvider {
         movieQueryBuilder = new SQLiteQueryBuilder();
 
         movieQueryBuilder.setTables(MovieEntry.TABLE_NAME + " INNER JOIN " +
-                TypeMovieEntry.TABLE_NAME +
+                MovieTypeEntry.TABLE_NAME +
                 " ON " + MovieEntry.TABLE_NAME +
                 "." + MovieEntry.COLUMN_TYPE_MOVIE_ID +
-                " = " + TypeMovieEntry.TABLE_NAME +
-                "." + TypeMovieEntry._ID);
+                " = " + MovieTypeEntry.TABLE_NAME +
+                "." + MovieTypeEntry._ID);
     }
 
     private static final String sMovieIdSelection =
@@ -45,8 +45,8 @@ public class MovieProvider extends ContentProvider {
                     "." + MovieEntry._ID + " = ?";
 
     private static final String sTypeMovieSelection =
-            TypeMovieEntry.TABLE_NAME +
-                    "." + TypeMovieEntry.COLUMN_TYPE + " = ? ";
+            MovieTypeEntry.TABLE_NAME +
+                    "." + MovieTypeEntry.COLUMN_TYPE + " = ? ";
 
 
     private Cursor getMovieById(Uri uri, String[] projection, String sortOrder) {
@@ -69,13 +69,13 @@ public class MovieProvider extends ContentProvider {
     }
 
     private Cursor getMovieByType(Uri uri, String[] projection, String sortOrder) {
-        String typeMovie = MovieEntry.getTypeFromUri(uri);
+        String movieType = MovieEntry.getTypeFromUri(uri);
 
         String[] selectionArgs;
         String selection;
 
         selection = sTypeMovieSelection;
-        selectionArgs = new String[]{typeMovie};
+        selectionArgs = new String[]{movieType};
 
         return movieQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,
@@ -102,7 +102,7 @@ public class MovieProvider extends ContentProvider {
         matcher.addURI(authority, MovieContract.PATH_MOVIE + "/#", MOVIE_BY_ID);
         matcher.addURI(authority, MovieContract.PATH_MOVIE + "/*", MOVIE_BY_TYPE);
 
-        matcher.addURI(authority, MovieContract.PATH_TYPE_MOVIE, TYPE_MOVIE);
+        matcher.addURI(authority, MovieContract.PATH_MOVIE_TYPE, TYPE_MOVIE);
 
         return matcher;
     }
@@ -128,7 +128,7 @@ public class MovieProvider extends ContentProvider {
             case MOVIE:
                 return MovieEntry.CONTENT_TYPE;
             case TYPE_MOVIE:
-                return TypeMovieEntry.CONTENT_TYPE;
+                return MovieTypeEntry.CONTENT_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -164,10 +164,10 @@ public class MovieProvider extends ContentProvider {
                 );
                 break;
             }
-            // "typeMovie"
+            // "movieType"
             case TYPE_MOVIE: {
                 retCursor = mOpenHelper.getReadableDatabase().query(
-                        TypeMovieEntry.TABLE_NAME,
+                        MovieTypeEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -201,9 +201,9 @@ public class MovieProvider extends ContentProvider {
                 break;
             }
             case TYPE_MOVIE: {
-                long _id = db.insert(TypeMovieEntry.TABLE_NAME, null, values);
+                long _id = db.insert(MovieTypeEntry.TABLE_NAME, null, values);
                 if (_id > 0)
-                    returnUri = TypeMovieEntry.buildTypeMovieUri(_id);
+                    returnUri = MovieTypeEntry.buildTypeMovieUri(_id);
                 else
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 break;
@@ -229,7 +229,7 @@ public class MovieProvider extends ContentProvider {
                 break;
             case TYPE_MOVIE:
                 rowsDeleted = db.delete(
-                        TypeMovieEntry.TABLE_NAME, selection, selectionArgs);
+                        MovieTypeEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -252,7 +252,7 @@ public class MovieProvider extends ContentProvider {
                 rowsUpdated = db.update(MovieEntry.TABLE_NAME, values, selection, selectionArgs);
                 break;
             case TYPE_MOVIE:
-                rowsUpdated = db.update(TypeMovieEntry.TABLE_NAME, values, selection, selectionArgs);
+                rowsUpdated = db.update(MovieTypeEntry.TABLE_NAME, values, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -271,7 +271,7 @@ public class MovieProvider extends ContentProvider {
             case MOVIE:
                 return insertWithTransaction(uri, db, values, MovieEntry.TABLE_NAME);
             case TYPE_MOVIE:
-                return insertWithTransaction(uri, db, values, TypeMovieEntry.TABLE_NAME);
+                return insertWithTransaction(uri, db, values, MovieTypeEntry.TABLE_NAME);
             default:
                 return super.bulkInsert(uri, values);
         }
