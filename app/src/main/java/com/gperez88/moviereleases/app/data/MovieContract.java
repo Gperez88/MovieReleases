@@ -17,7 +17,7 @@ public class MovieContract {
     public static final String PATH_MOVIE_TYPE = "movie_type";
 
     public final static class MovieTypeEntry implements BaseColumns{
-        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE).build();
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE_TYPE).build();
 
         //multiple items
         public static final String CONTENT_TYPE =

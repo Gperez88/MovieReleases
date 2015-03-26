@@ -1,7 +1,11 @@
 package com.gperez88.moviereleases.app.activities;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,16 +13,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.gperez88.moviereleases.app.R;
-import com.gperez88.moviereleases.app.adapters.MoviePagerAdapter;
+import com.gperez88.moviereleases.app.adapters.CursorFragmentPagerAdapter;
+import com.gperez88.moviereleases.app.adapters.MovieFragmentPagerAdapter;
+import com.gperez88.moviereleases.app.data.MovieContract;
+import com.gperez88.moviereleases.app.tasks.MovieTask;
 import com.gperez88.moviereleases.app.utils.view.SlidingTabLayout;
 
 
-public class MainActivity extends ActionBarActivity {
-
+public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+    private static final int MOVIE_TYPE_LOADER = 0;
     private final String MOVIESFRAGMENT_TAG = "MOVIESFRAGMENTTAG";
 
     private String mCodeCountry;
-    private MoviePagerAdapter moviePagerAdapter;
+    private CursorFragmentPagerAdapter moviePagerAdapter;
     private ViewPager viewPagerMovie;
 
     @Override
@@ -26,10 +33,11 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        updateMovie();
         //set custom toolbar.
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
-        moviePagerAdapter = new MoviePagerAdapter(this, getSupportFragmentManager());
+        moviePagerAdapter = new MovieFragmentPagerAdapter(this, getSupportFragmentManager(),null);
         viewPagerMovie = (ViewPager) findViewById(R.id.viewPager_movie);
         viewPagerMovie.setAdapter(moviePagerAdapter);
         //TODO:mientras construyo la pantalla de setting.
@@ -64,13 +72,13 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //TODO:mientras construyo la pantalla de setting.
+        getSupportLoaderManager().initLoader(MOVIE_TYPE_LOADER, null, this);
 /*        MoviesFragment moviesFragment = (MoviesFragment) findFragmentByPosition(viewPagerMovie.getCurrentItem());
         if (null != moviesFragment) {
             moviesFragment.onLocationChanged();
         }*/
 //        String codeCountry = "do";
-//
+
 //        if (codeCountry != null && !codeCountry.equals(mCodeCountry)) {
 //            MoviesFragment moviesFragment = (MoviesFragment) getSupportFragmentManager().findFragmentByTag(MOVIESFRAGMENT_TAG);
 //            if (null != moviesFragment) {
@@ -79,6 +87,7 @@ public class MainActivity extends ActionBarActivity {
 //            mCodeCountry = codeCountry;
 //        }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,5 +110,30 @@ public class MainActivity extends ActionBarActivity {
         return getSupportFragmentManager().findFragmentByTag(
                 "android:switcher:" + viewPagerMovie.getId() + ":"
                         + moviePagerAdapter.getItemId(position));
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(this,
+                MovieContract.MovieTypeEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        moviePagerAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        moviePagerAdapter.swapCursor(null);
+    }
+
+    private void updateMovie() {
+        MovieTask movieTask = new MovieTask(this);
+        movieTask.execute();
     }
 }

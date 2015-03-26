@@ -19,8 +19,8 @@ public class TestUtils extends AndroidTestCase {
     static ContentValues createTestTypeMovieValues() {
         // Create a new map of values, where column names are the keys
         ContentValues testValues = new ContentValues();
-        testValues.put(MovieContract.TypeMovieEntry.COLUMN_TYPE, "Action & Adventure");
-        testValues.put(MovieContract.TypeMovieEntry.COLUMN_DESCRIPTION, "Action & Adventure");
+        testValues.put(MovieContract.MovieTypeEntry.COLUMN_TYPE, "Action & Adventure");
+        testValues.put(MovieContract.MovieTypeEntry.COLUMN_DESCRIPTION, "Action & Adventure");
 
         return testValues;
     }
@@ -64,7 +64,7 @@ public class TestUtils extends AndroidTestCase {
         ContentValues testValues = TestUtils.createTestTypeMovieValues();
 
         long countryRowId;
-        countryRowId = db.insert(MovieContract.TypeMovieEntry.TABLE_NAME, null, testValues);
+        countryRowId = db.insert(MovieContract.MovieTypeEntry.TABLE_NAME, null, testValues);
 
         // Verify we got a row back.
         assertTrue("Error: Failure to insert North Pole Location Values", countryRowId != -1);

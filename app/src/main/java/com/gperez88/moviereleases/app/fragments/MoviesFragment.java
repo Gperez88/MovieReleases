@@ -32,34 +32,32 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     //column's
     private static final String[] MOVIE_COLUMNS = {
             MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
-            MovieContract.MovieEntry.COLUMN_THUMBNAIL_URL,
             MovieContract.MovieEntry.COLUMN_TITLE,
-//            MovieContract.MovieEntry.COLUMN_YEAR,
-            MovieContract.MovieEntry.COLUMN_RELEASE_DATE,
+            MovieContract.MovieEntry.COLUMN_THUMBNAIL_URL,
             MovieContract.MovieEntry.COLUMN_SYNOPSIS,
-//            MovieContract.MovieEntry.COLUMN_COUNTRY_ID,
-//            MovieContract.MovieEntry.COLUMN_SECTION
+            MovieContract.MovieEntry.COLUMN_RELEASE_DATE,
+            MovieContract.MovieEntry.COLUMN_DURATION,
+            MovieContract.MovieEntry.COLUMN_TYPE_MOVIE_ID
     };
 
     //indices column's
     public static final int COL_MOVIE_ID = 0;
-    public static final int COL_MOVIE_THUMBNAIL_URL = 1;
-    public static final int COL_MOVIE_TITLE = 2;
-    public static final int COL_MOVIE_YEAR = 3;
+    public static final int COL_MOVIE_TITLE = 1;
+    public static final int COL_MOVIE_THUMBNAIL_URL = 2;
+    public static final int COL_MOVIE_SYNOPSIS = 3;
     public static final int COL_MOVIE_RELEASE_DATE = 4;
-    public static final int COL_MOVIE_SYNOPSIS = 5;
-    public static final int COL_MOVIE_COUNTRY_ID = 6;
-    public static final int COL_MOVIE_SECTION = 7;
+    public static final int COL_MOVIE_DURATION = 5;
+    public static final int COL_MOVIE_TYPE_MOVIE_ID = 6;
 
     private MovieAdapter movieAdapter;
 
     public MoviesFragment() {
     }
 
-    public static MoviesFragment create(String section) {
+    public static MoviesFragment create(String movieType) {
         MoviesFragment moviesFragment = new MoviesFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_SECTION_MOVIE, section);
+        args.putString(ARG_SECTION_MOVIE, movieType);
 
         moviesFragment.setArguments(args);
         return moviesFragment;
@@ -116,26 +114,19 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 
     private void updateMovie() {
         MovieTask movieTask = new MovieTask(getActivity());
-        //TODO:mientras construyo la pantalla de setting. mejorar tambien forma de pasar la section
-
-        String codeCountry = "do";
-        String countryName = "dominican republic";
-        movieTask.execute(codeCountry, countryName);
+        movieTask.execute();
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-//        String locationSetting = ForecastUtil.getPreferredLocation(getActivity());
-        String codeContrySetting = "do";
-        String sectionArg = getArguments().getString(ARG_SECTION_MOVIE);
+        String movieTypeArg = getArguments().getString(ARG_SECTION_MOVIE);
 
         // Sort order:  Ascending, by date.
-        String sortOrder = "";//MovieContract.MovieEntry.COLUMN_YEAR + " DESC";
-        Uri weatherForLocationUri = null;//MovieContract.MovieEntry.buildMovieCountryWithSeccion(
-                //codeContrySetting, sectionArg);
+        String sortOrder = MovieContract.MovieEntry.COLUMN_TITLE + " DESC";
+        Uri movieWithTypeUri = MovieContract.MovieEntry.buildMovieWithType(movieTypeArg);
 
         return new CursorLoader(getActivity(),
-                weatherForLocationUri,
+                movieWithTypeUri,
                 MOVIE_COLUMNS,
                 null,
                 null,

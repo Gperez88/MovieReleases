@@ -113,7 +113,7 @@ public class MovieTask extends AsyncTask<Void, Void, Void> {
         final String TITLE = "title";
         final String THUMBNAIL_URL = "thumbnail_url";
         final String SYNOPSIS = "synopsis";
-        final String RELEASE_DATES = "release_dates";
+        final String RELEASE_DATE = "release_date";
         final String DURATION = "duration";
         final String MOVIE_TYPE_ID = "type_id";
 
@@ -135,11 +135,13 @@ public class MovieTask extends AsyncTask<Void, Void, Void> {
                 long movieTypeId;
 
                 JSONObject movie = movieArrayJson.getJSONObject(i);
+                Log.v(LOG_TAG, "Movie Object: "+ movie.toString());
 
                 title = movie.getString(TITLE);
+                Log.d(LOG_TAG,"Title: "+ title);
                 thumbnailUrl = movie.getString(THUMBNAIL_URL);
                 synopsis = movie.getString(SYNOPSIS);
-                releaseDates = movie.getString(RELEASE_DATES);
+                releaseDates = movie.getString(RELEASE_DATE);
                 duration = movie.getString(DURATION);
                 movieTypeId = movie.getLong(MOVIE_TYPE_ID);
 
@@ -179,8 +181,8 @@ public class MovieTask extends AsyncTask<Void, Void, Void> {
             String movieTypeJsonStr = MovieService.callMovieTypeListService();
             String movieJsonStr = MovieService.callMovieListService();
 
-            insertMovieDataFromJson(movieTypeJsonStr);
-            insertMovieTypeFromJson(movieJsonStr);
+            insertMovieDataFromJson(movieJsonStr);
+            insertMovieTypeFromJson(movieTypeJsonStr);
 
         } catch (Exception e) {
             e.printStackTrace();

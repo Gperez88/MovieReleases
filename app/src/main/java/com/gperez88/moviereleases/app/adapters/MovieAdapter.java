@@ -58,7 +58,7 @@ public class MovieAdapter extends CursorAdapter {
         String title = cursor.getString(MoviesFragment.COL_MOVIE_TITLE);
         viewHolder.titleView.setText(title);
 
-        String year = String.valueOf(cursor.getInt(MoviesFragment.COL_MOVIE_YEAR));
+        String year = String.valueOf(cursor.getInt(MoviesFragment.COL_MOVIE_RELEASE_DATE));
         viewHolder.yearView.setText(year);
     }
 }
