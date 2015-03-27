@@ -11,23 +11,24 @@ import android.widget.TextView;
 
 import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.fragments.MoviesFragment;
+import com.gperez88.moviereleases.app.utils.MovieUtils;
 import com.squareup.picasso.Picasso;
 
 /**
  * Created by GPEREZ on 3/17/2015.
  */
 public class MovieAdapter extends CursorAdapter {
-    public static final String TAG = MovieAdapter.class.getSimpleName();
+    public static final String LOG_TAG = MovieAdapter.class.getSimpleName();
 
     public static class ViewHolder {
         public final ImageView iconView;
         public final TextView titleView;
-        public final TextView yearView;
+        public final TextView releaseDateView;
 
         public ViewHolder(View view) {
             iconView = (ImageView) view.findViewById(R.id.list_item_thumbnail);
             titleView = (TextView) view.findViewById(R.id.list_item_title_textview);
-            yearView = (TextView) view.findViewById(R.id.list_item_year_textview);
+            releaseDateView = (TextView) view.findViewById(R.id.list_item_release_date_textview);
         }
     }
 
@@ -58,7 +59,7 @@ public class MovieAdapter extends CursorAdapter {
         String title = cursor.getString(MoviesFragment.COL_MOVIE_TITLE);
         viewHolder.titleView.setText(title);
 
-        String year = String.valueOf(cursor.getInt(MoviesFragment.COL_MOVIE_RELEASE_DATE));
-        viewHolder.yearView.setText(year);
+        String date = cursor.getString(MoviesFragment.COL_MOVIE_RELEASE_DATE);
+        viewHolder.releaseDateView.setText(MovieUtils.formatDate(date));
     }
 }

@@ -19,9 +19,11 @@ public class MovieDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_TYPE_MOVIE_TABLE = "CREATE TABLE " + MovieContract.MovieTypeEntry.TABLE_NAME + " (" +
-                MovieContract.MovieTypeEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                MovieContract.MovieTypeEntry._ID + " INTEGER PRIMARY KEY," +
                 MovieContract.MovieTypeEntry.COLUMN_TYPE + " TEXT NOT NULL, " +
-                MovieContract.MovieTypeEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL );";
+                MovieContract.MovieTypeEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
+                " UNIQUE (" + MovieContract.MovieTypeEntry._ID + ", " +
+                MovieContract.MovieTypeEntry.COLUMN_TYPE + " ) ON CONFLICT REPLACE);";
 
         final String SQL_CREATE_MOVIE_TABLE = "CREATE TABLE " + MovieContract.MovieEntry.TABLE_NAME + " (" +
                 MovieContract.MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +

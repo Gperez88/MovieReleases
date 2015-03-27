@@ -64,6 +64,7 @@ public class MovieTask extends AsyncTask<Void, Void, Void> {
     }
 
     public void insertMovieTypeFromJson(String movieTypeJsonStr) throws JSONException {
+        final String ID = "id";
         final String TYPE = "type";
         final String DESCRIPTION = "description";
 
@@ -77,19 +78,22 @@ public class MovieTask extends AsyncTask<Void, Void, Void> {
 
             for (int i = 0; i < movieTypeArrayJson.length(); i++) {
 
+                long id;
                 String type;
                 String description;
 
                 JSONObject movie = movieTypeArrayJson.getJSONObject(i);
 
+                id = movie.getLong(ID);
                 type = movie.getString(TYPE);
                 description = movie.getString(DESCRIPTION);
 
-                ContentValues movieValues = new ContentValues();
+                ContentValues movieTypeValues = new ContentValues();
 
-                movieValues.put(MovieTypeEntry.COLUMN_TYPE, type);
-                movieValues.put(MovieTypeEntry.COLUMN_DESCRIPTION, description);
-                cVVector.add(movieValues);
+                movieTypeValues.put(MovieTypeEntry._ID, id);
+                movieTypeValues.put(MovieTypeEntry.COLUMN_TYPE, type);
+                movieTypeValues.put(MovieTypeEntry.COLUMN_DESCRIPTION, description);
+                cVVector.add(movieTypeValues);
             }
 
             int inserted = 0;
@@ -135,10 +139,10 @@ public class MovieTask extends AsyncTask<Void, Void, Void> {
                 long movieTypeId;
 
                 JSONObject movie = movieArrayJson.getJSONObject(i);
-                Log.v(LOG_TAG, "Movie Object: "+ movie.toString());
+                Log.v(LOG_TAG, "Movie Object: " + movie.toString());
 
                 title = movie.getString(TITLE);
-                Log.d(LOG_TAG,"Title: "+ title);
+                Log.d(LOG_TAG, "Title: " + title);
                 thumbnailUrl = movie.getString(THUMBNAIL_URL);
                 synopsis = movie.getString(SYNOPSIS);
                 releaseDates = movie.getString(RELEASE_DATE);

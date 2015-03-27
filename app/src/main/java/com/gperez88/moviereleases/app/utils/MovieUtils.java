@@ -1,33 +1,29 @@
 package com.gperez88.moviereleases.app.utils;
 
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by GPEREZ on 3/16/2015.
  */
 public class MovieUtils {
+    private static final String LOG_TAG = MovieUtils.class.getSimpleName();
 
-    public static Date formatDate(String dateStr) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    public static String formatDate(String dateStr) {
+        SimpleDateFormat stringToDateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        SimpleDateFormat millisecondsToDateFormatter = new SimpleDateFormat("MMMM yyyy");
 
         try {
-            return formatter.parse(dateStr);
+            long dateMilliseconds = stringToDateFormatter.parse(dateStr).getTime();
+            return millisecondsToDateFormatter.format(new Date(dateMilliseconds));
         } catch (ParseException e) {
+            Log.d(LOG_TAG,"Error parse date: "+ e.getMessage());
             e.printStackTrace();
         }
-
-        return null;
+        return "";
     }
-
-//    public static int roundPage(Float value){
-//        float decimal = Float.parseFloat(String.format("%.20f\n",value));
-//
-//        if(decimal > 0) {
-//            return value.intValue() + 1;
-//        }
-//
-//        return value.intValue();
-//    }
 }

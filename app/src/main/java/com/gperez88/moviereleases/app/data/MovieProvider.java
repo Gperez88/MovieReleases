@@ -17,6 +17,7 @@ import com.gperez88.moviereleases.app.data.MovieContract.MovieTypeEntry;
  * Created by GPEREZ on 3/14/2015.
  */
 public class MovieProvider extends ContentProvider {
+    private static final String LOG_TAG = MovieProvider.class.getSimpleName();
 
     // The URI Matcher used by this content provider.
     private static final UriMatcher sUriMatcher = buildUriMatcher();

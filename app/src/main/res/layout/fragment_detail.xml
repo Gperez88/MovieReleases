@@ -42,13 +42,6 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/year_detail_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:textAppearance="?android:textAppearanceSmall" />
-
-                <TextView
                     android:id="@+id/release_date_detail_textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

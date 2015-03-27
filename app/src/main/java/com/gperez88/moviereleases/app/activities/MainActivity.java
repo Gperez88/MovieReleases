@@ -2,7 +2,6 @@ package com.gperez88.moviereleases.app.activities;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -24,34 +23,30 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     private static final int MOVIE_TYPE_LOADER = 0;
     private final String MOVIESFRAGMENT_TAG = "MOVIESFRAGMENTTAG";
 
-    private String mCodeCountry;
     private CursorFragmentPagerAdapter moviePagerAdapter;
     private ViewPager viewPagerMovie;
+    private SlidingTabLayout slidingTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        updateMovie();
+       updateMovie();
         //set custom toolbar.
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         moviePagerAdapter = new MovieFragmentPagerAdapter(this, getSupportFragmentManager(),null);
         viewPagerMovie = (ViewPager) findViewById(R.id.viewPager_movie);
         viewPagerMovie.setAdapter(moviePagerAdapter);
-        //TODO:mientras construyo la pantalla de setting.
-        mCodeCountry = "us";
 
         // Give the SlidingTabLayout the ViewPager
-        SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.slidingTabLayout_movie);
+        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.slidingTabLayout_movie);
 
         //Customize tab view
         slidingTabLayout.setCustomTabView(R.layout.custom_tab, 0);
 
         slidingTabLayout.setMeasureAllChildren(true);
-
-        slidingTabLayout.setViewPager(viewPagerMovie);
 
         // Customize tab color
         slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
@@ -106,12 +101,6 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         return super.onOptionsItemSelected(item);
     }
 
-    private Fragment findFragmentByPosition(int position) {
-        return getSupportFragmentManager().findFragmentByTag(
-                "android:switcher:" + viewPagerMovie.getId() + ":"
-                        + moviePagerAdapter.getItemId(position));
-    }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(this,
@@ -125,6 +114,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         moviePagerAdapter.swapCursor(data);
+        slidingTabLayout.setViewPager(viewPagerMovie);
     }
 
     @Override

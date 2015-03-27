@@ -76,6 +76,16 @@ public abstract  class CursorFragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
+    public CharSequence getPageTitle(int position) {
+        if(mDataValid){
+            mCursor.moveToPosition(position);
+            return getPageTitle(mContext, mCursor);
+        }else{
+            return null;
+        }
+    }
+
+    @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         mObjectMap.remove(object);
 
@@ -99,6 +109,7 @@ public abstract  class CursorFragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
     public abstract Fragment getItem(Context context, Cursor cursor);
+    public abstract String getPageTitle(Context context, Cursor cursor);
 
     @Override
     public int getCount() {

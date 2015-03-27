@@ -25,7 +25,7 @@ import com.gperez88.moviereleases.app.tasks.MovieTask;
  * Created by GPEREZ on 3/16/2015.
  */
 public class MoviesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String LOG_CAT = MoviesFragment.class.getSimpleName();
+    private static final String LOG_TAG = MoviesFragment.class.getSimpleName();
     private static final int MOVIE_LOADER = 0;
     private static final String ARG_SECTION_MOVIE = "arg_section_movie";
 
@@ -34,20 +34,14 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
             MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
             MovieContract.MovieEntry.COLUMN_TITLE,
             MovieContract.MovieEntry.COLUMN_THUMBNAIL_URL,
-            MovieContract.MovieEntry.COLUMN_SYNOPSIS,
-            MovieContract.MovieEntry.COLUMN_RELEASE_DATE,
-            MovieContract.MovieEntry.COLUMN_DURATION,
-            MovieContract.MovieEntry.COLUMN_TYPE_MOVIE_ID
+            MovieContract.MovieEntry.COLUMN_RELEASE_DATE
     };
 
     //indices column's
     public static final int COL_MOVIE_ID = 0;
     public static final int COL_MOVIE_TITLE = 1;
     public static final int COL_MOVIE_THUMBNAIL_URL = 2;
-    public static final int COL_MOVIE_SYNOPSIS = 3;
-    public static final int COL_MOVIE_RELEASE_DATE = 4;
-    public static final int COL_MOVIE_DURATION = 5;
-    public static final int COL_MOVIE_TYPE_MOVIE_ID = 6;
+    public static final int COL_MOVIE_RELEASE_DATE = 3;
 
     private MovieAdapter movieAdapter;
 
@@ -71,8 +65,6 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-       // updateMovie();
-
         movieAdapter = new MovieAdapter(getActivity(), null, 0);
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
@@ -89,7 +81,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
                 // if it cannot seek to that position.
                 Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
                 if (cursor != null) {
-                    Log.d(LOG_CAT, MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID)).toString());
+                    Log.d(LOG_TAG, MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID)).toString());
 
                     Intent intent = new Intent(getActivity(), DetailActivity.class)
                             .setData(MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID)));
@@ -125,6 +117,23 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
         String sortOrder = MovieContract.MovieEntry.COLUMN_TITLE + " DESC";
         Uri movieWithTypeUri = MovieContract.MovieEntry.buildMovieWithType(movieTypeArg);
 
+
+         final String sTypeMovieSelection =
+                MovieContract.MovieTypeEntry.TABLE_NAME +
+                        "." + MovieContract.MovieTypeEntry.COLUMN_TYPE + " = ? ";
+
+        String selection = sTypeMovieSelection;
+        String[] selectionArgs = new String[]{movieTypeArg};
+
+
+        Cursor c = getActivity().getContentResolver().query(
+                movieWithTypeUri,
+                MOVIE_COLUMNS,
+                selection,
+                selectionArgs,
+                sortOrder
+        );
+
         return new CursorLoader(getActivity(),
                 movieWithTypeUri,
                 MOVIE_COLUMNS,
@@ -136,6 +145,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         movieAdapter.swapCursor(cursor);
+
     }
 
     @Override
