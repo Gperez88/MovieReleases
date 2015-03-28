@@ -202,7 +202,7 @@ public class MovieProvider extends ContentProvider {
                 break;
             }
             case TYPE_MOVIE: {
-                long _id = db.insert(MovieTypeEntry.TABLE_NAME, null, values);
+                long _id = db.insertWithOnConflict(MovieTypeEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 if (_id > 0)
                     returnUri = MovieTypeEntry.buildTypeMovieUri(_id);
                 else
@@ -283,7 +283,7 @@ public class MovieProvider extends ContentProvider {
         int returnCount = 0;
         try {
             for (ContentValues value : values) {
-                long _id = db.insert(tableName, null, value);
+                long _id = db.insertWithOnConflict(tableName, null, value, SQLiteDatabase.CONFLICT_REPLACE);
                 if (_id != -1) {
                     returnCount++;
                 }

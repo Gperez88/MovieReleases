@@ -1,6 +1,9 @@
 package com.gperez88.moviereleases.app.utils;
 
+import android.content.Context;
 import android.util.Log;
+
+import com.gperez88.moviereleases.app.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,5 +28,9 @@ public class MovieUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static String formatDuration(Context context, int duration) {
+        return String.format(context.getString(R.string.format_duration), duration);
     }
 }

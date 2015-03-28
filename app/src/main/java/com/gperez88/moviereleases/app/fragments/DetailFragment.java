@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 /**
  * Created by GPEREZ on 3/21/2015.
  */
-public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String LOG_GAT = DetailFragment.class.getSimpleName();
     private static final int DETAIL_LOADER = 0;
 
@@ -47,22 +47,27 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public static final int COL_MOVIE_TYPE_MOVIE_ID = 6;
 
 
-    private ImageView detailTumbnailImageView;
-    private TextView titleDetailTextView;
-    private TextView releateDateDetailTextView;
+    private ImageView detailThumbnailImageView;
+    private ImageView detailCoverImageView;
+    private TextView detailTitleTextView;
+    private TextView detailReleaseDateTextView;
+    private TextView detailDurationTextView;
     private TextView synopsisDetailTextView;
 
 
-    public DetailFragment(){}
+    public DetailFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-        detailTumbnailImageView = (ImageView)rootView.findViewById(R.id.detail_thumbnail);
-        titleDetailTextView = (TextView)rootView.findViewById(R.id.title_detail_textView);
-        releateDateDetailTextView = (TextView)rootView.findViewById(R.id.release_date_detail_textView);
-        synopsisDetailTextView = (TextView)rootView.findViewById(R.id.synopsis_detail_textView);
+        detailThumbnailImageView = (ImageView) rootView.findViewById(R.id.detail_thumbnail_imageView);
+        detailCoverImageView = (ImageView) rootView.findViewById(R.id.detail_cover_imageView);
+        detailTitleTextView = (TextView) rootView.findViewById(R.id.detail_title_textView);
+        detailReleaseDateTextView = (TextView) rootView.findViewById(R.id.detail_release_date_textView);
+        detailDurationTextView = (TextView) rootView.findViewById(R.id.detail_duration_textView);
+        synopsisDetailTextView = (TextView) rootView.findViewById(R.id.synopsis_detail_textView);
 
         return rootView;
     }
@@ -99,17 +104,24 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
             Picasso.with(getActivity())
                     .load(thumbnailUrl)
-                    .into(detailTumbnailImageView);
+                    .into(detailThumbnailImageView);
+
+            Picasso.with(getActivity())
+                    .load(thumbnailUrl)
+                    .placeholder(R.drawable.default_image)
+                    .into(detailCoverImageView);
 
             String title = data.getString(COL_MOVIE_TITLE);
-            titleDetailTextView.setText(title);
+            detailTitleTextView.setText(title);
 
             String date = data.getString(COL_MOVIE_RELEASE_DATE);
-            releateDateDetailTextView.setText(MovieUtils.formatDate(date));
+            detailReleaseDateTextView.setText(MovieUtils.formatDate(date));
+
+            int duration = data.getInt(COL_MOVIE_DURATION);
+            detailDurationTextView.setText(MovieUtils.formatDuration(getActivity(), duration));
 
             String synopsis = data.getString(COL_MOVIE_SYNOPSIS);
             synopsisDetailTextView.setText(synopsis);
-
         }
     }
 

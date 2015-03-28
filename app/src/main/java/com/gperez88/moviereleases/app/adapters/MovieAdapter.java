@@ -52,7 +52,7 @@ public class MovieAdapter extends CursorAdapter {
 
         String url = cursor.getString(MoviesFragment.COL_MOVIE_THUMBNAIL_URL);
 
-        Picasso.with(mContext)
+        Picasso.with(context)
                 .load(url)
                 .into(viewHolder.iconView);
 

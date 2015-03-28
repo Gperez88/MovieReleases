@@ -32,7 +32,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       updateMovie();
+       //updateMovie();
         //set custom toolbar.
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
