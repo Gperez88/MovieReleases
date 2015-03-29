@@ -22,39 +22,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/medium_padding">
 
                 <ImageView
                     android:id="@+id/detail_thumbnail_imageView"
-                    android:layout_width="96dp"
-                    android:layout_height="144dp"
+                    android:layout_width="@dimen/thumbnail_layout_width"
+                    android:layout_height="@dimen/thumbnail_layout_height"
                     android:layout_marginTop="@dimen/thumbnail_layout_marginTop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="200dp"
+                    android:layout_marginLeft="@dimen/small_margin"
+                    android:layout_marginTop="@dimen/cover_layout_height"
                     android:layout_toRightOf="@+id/detail_thumbnail_imageView">
 
                     <TextView
                         android:id="@+id/detail_title_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/MovieReleaseTheme.PrimaryText" />
+                        style="@style/MovieReleaseTheme.SubheadText" />
 
                     <TextView
                         android:id="@+id/detail_release_date_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/MovieReleaseTheme.SecondaryText" />
+                        style="@style/MovieReleaseTheme.Body1Text" />
 
                     <TextView
                         android:id="@+id/detail_duration_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/MovieReleaseTheme.SecondaryText"/>
+                        style="@style/MovieReleaseTheme.Body1Text"/>
 
                 </LinearLayout>
 
@@ -62,9 +62,9 @@
                     android:id="@+id/synopsis_detail_textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/MovieReleaseTheme.SecondaryText"
+                    style="@style/MovieReleaseTheme.Body1Text"
                     android:layout_below="@+id/detail_thumbnail_imageView"
-                    android:layout_marginTop="16dp"/>
+                    android:layout_marginTop="@dimen/medium_padding"/>
 
             </RelativeLayout>
 

@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.GridView;
 
 import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.activities.DetailActivity;
@@ -69,11 +69,11 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        ListView listView = (ListView) rootView.findViewById(R.id.listview_movie);
-        listView.setAdapter(movieAdapter);
+        GridView gridView =(GridView)rootView.findViewById(R.id.movie_gridview);
+        gridView.setAdapter(movieAdapter);
 
         // We'll call our MainActivity
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -116,23 +116,6 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
         // Sort order:  Ascending, by date.
         String sortOrder = MovieContract.MovieEntry.COLUMN_TITLE + " DESC";
         Uri movieWithTypeUri = MovieContract.MovieEntry.buildMovieWithType(movieTypeArg);
-
-
-         final String sTypeMovieSelection =
-                MovieContract.MovieTypeEntry.TABLE_NAME +
-                        "." + MovieContract.MovieTypeEntry.COLUMN_TYPE + " = ? ";
-
-        String selection = sTypeMovieSelection;
-        String[] selectionArgs = new String[]{movieTypeArg};
-
-
-        Cursor c = getActivity().getContentResolver().query(
-                movieWithTypeUri,
-                MOVIE_COLUMNS,
-                selection,
-                selectionArgs,
-                sortOrder
-        );
 
         return new CursorLoader(getActivity(),
                 movieWithTypeUri,

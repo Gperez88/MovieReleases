@@ -8,11 +8,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/MovieReleaseTheme" >
+        android:theme="@style/MovieRelease" >
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/MovieReleaseTheme.NoActionBar" >
+            android:theme="@style/Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

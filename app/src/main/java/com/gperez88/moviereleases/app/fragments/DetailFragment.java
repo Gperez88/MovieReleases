@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.data.MovieContract;
 import com.gperez88.moviereleases.app.utils.MovieUtils;
-import com.squareup.picasso.Picasso;
+import com.koushikdutta.ion.Ion;
 
 /**
  * Created by GPEREZ on 3/21/2015.
@@ -102,14 +102,12 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         if (data != null && data.moveToFirst()) {
             String thumbnailUrl = data.getString(COL_MOVIE_THUMBNAIL_URL);
 
-            Picasso.with(getActivity())
-                    .load(thumbnailUrl)
-                    .into(detailThumbnailImageView);
+            Ion.with(detailThumbnailImageView)
+                    .load(thumbnailUrl);
 
-            Picasso.with(getActivity())
-                    .load(thumbnailUrl)
+            Ion.with(detailCoverImageView)
                     .placeholder(R.drawable.default_image)
-                    .into(detailCoverImageView);
+                    .load(thumbnailUrl);
 
             String title = data.getString(COL_MOVIE_TITLE);
             detailTitleTextView.setText(title);

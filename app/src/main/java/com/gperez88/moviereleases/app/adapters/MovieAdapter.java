@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.fragments.MoviesFragment;
 import com.gperez88.moviereleases.app.utils.MovieUtils;
-import com.squareup.picasso.Picasso;
+import com.koushikdutta.ion.Ion;
 
 /**
  * Created by GPEREZ on 3/17/2015.
@@ -38,7 +38,7 @@ public class MovieAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_movie, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.grid_item_movie, viewGroup, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
         view.setTag(viewHolder);
@@ -52,9 +52,8 @@ public class MovieAdapter extends CursorAdapter {
 
         String url = cursor.getString(MoviesFragment.COL_MOVIE_THUMBNAIL_URL);
 
-        Picasso.with(context)
-                .load(url)
-                .into(viewHolder.iconView);
+        Ion.with(viewHolder.iconView)
+                .load(url);
 
         String title = cursor.getString(MoviesFragment.COL_MOVIE_TITLE);
         viewHolder.titleView.setText(title);

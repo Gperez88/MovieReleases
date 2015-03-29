@@ -6,8 +6,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <include layout="@layout/toolbar" />
-
     <com.gperez88.moviereleases.app.utils.view.SlidingTabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

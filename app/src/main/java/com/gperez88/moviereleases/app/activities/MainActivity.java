@@ -7,7 +7,6 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -32,9 +31,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       //updateMovie();
-        //set custom toolbar.
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        //updateMovie();
 
         moviePagerAdapter = new MovieFragmentPagerAdapter(this, getSupportFragmentManager(),null);
         viewPagerMovie = (ViewPager) findViewById(R.id.viewPager_movie);
@@ -61,6 +58,8 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
             }
 
         });
+
+        getSupportActionBar().setElevation(0f);
 
     }
 
