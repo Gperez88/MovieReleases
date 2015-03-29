@@ -44,7 +44,7 @@
                         android:id="@+id/detail_title_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/MovieReleaseTheme.SubheadText" />
+                        style="@style/MovieReleaseTheme.TitleText" />
 
                     <TextView
                         android:id="@+id/detail_release_date_textView"

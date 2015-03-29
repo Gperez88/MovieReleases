@@ -25,15 +25,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/MovieReleaseTheme.SubheadText"
-            android:text="Title"
             android:singleLine="true" />
 
         <TextView
             android:id="@+id/list_item_release_date_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/MovieReleaseTheme.Body1Text"
-            android:text="August 2014" />
+            style="@style/MovieReleaseTheme.Body1Text" />
 
     </LinearLayout>
 

@@ -13,8 +13,7 @@
     </style>
 
     <!-- Settings activity theme. -->
-    <style name="SettingsTheme" parent="MovieRelease">
-    </style>
+    <style name="SettingsTheme" parent="MovieRelease"></style>
 
     <!-- main activity action bar styles -->
     <style name="ActionBar.Solid.MovieRelease.NoTitle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">

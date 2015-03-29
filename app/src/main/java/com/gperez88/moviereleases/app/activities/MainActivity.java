@@ -1,5 +1,6 @@
 package com.gperez88.moviereleases.app.activities;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -33,7 +34,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
 
         //updateMovie();
 
-        moviePagerAdapter = new MovieFragmentPagerAdapter(this, getSupportFragmentManager(),null);
+        moviePagerAdapter = new MovieFragmentPagerAdapter(this, getSupportFragmentManager(), null);
         viewPagerMovie = (ViewPager) findViewById(R.id.viewPager_movie);
         viewPagerMovie.setAdapter(moviePagerAdapter);
 
@@ -94,6 +95,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
