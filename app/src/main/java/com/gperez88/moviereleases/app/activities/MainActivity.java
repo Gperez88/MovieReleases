@@ -3,6 +3,7 @@ package com.gperez88.moviereleases.app.activities;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -15,24 +16,27 @@ import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.adapters.CursorFragmentPagerAdapter;
 import com.gperez88.moviereleases.app.adapters.MovieFragmentPagerAdapter;
 import com.gperez88.moviereleases.app.data.MovieContract;
-import com.gperez88.moviereleases.app.tasks.MovieTask;
+import com.gperez88.moviereleases.app.fragments.MoviesFragment;
+import com.gperez88.moviereleases.app.services.MovieSyncAdapter;
+import com.gperez88.moviereleases.app.utils.MovieUtils;
 import com.gperez88.moviereleases.app.utils.view.SlidingTabLayout;
 
 
 public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int MOVIE_TYPE_LOADER = 0;
-    private final String MOVIESFRAGMENT_TAG = "MOVIESFRAGMENTTAG";
 
     private CursorFragmentPagerAdapter moviePagerAdapter;
     private ViewPager viewPagerMovie;
     private SlidingTabLayout slidingTabLayout;
+
+    private String mSyncInterval;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //updateMovie();
+        mSyncInterval = MovieUtils.getPreferredSyncInterval(this);
 
         moviePagerAdapter = new MovieFragmentPagerAdapter(this, getSupportFragmentManager(), null);
         viewPagerMovie = (ViewPager) findViewById(R.id.viewPager_movie);
@@ -61,28 +65,24 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         });
 
         getSupportActionBar().setElevation(0f);
-
+        MovieSyncAdapter.initializeSyncAdapter(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         getSupportLoaderManager().initLoader(MOVIE_TYPE_LOADER, null, this);
-/*        MoviesFragment moviesFragment = (MoviesFragment) findFragmentByPosition(viewPagerMovie.getCurrentItem());
-        if (null != moviesFragment) {
-            moviesFragment.onLocationChanged();
-        }*/
-//        String codeCountry = "do";
 
-//        if (codeCountry != null && !codeCountry.equals(mCodeCountry)) {
-//            MoviesFragment moviesFragment = (MoviesFragment) getSupportFragmentManager().findFragmentByTag(MOVIESFRAGMENT_TAG);
-//            if (null != moviesFragment) {
-//                moviesFragment.onLocationChanged();
-//            }
-//            mCodeCountry = codeCountry;
-//        }
+        String syncInterval = MovieUtils.getPreferredSyncInterval(this);
+        if(syncInterval != null && !syncInterval.equals(mSyncInterval)){
+            MoviesFragment moviesFragment = (MoviesFragment) findFragmentByPosition(viewPagerMovie.getCurrentItem());
+            if(null != moviesFragment){
+                MovieSyncAdapter.configurePeriodicSync(this);
+            }
+            mSyncInterval = syncInterval;
+        }
+
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -123,8 +123,9 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         moviePagerAdapter.swapCursor(null);
     }
 
-    private void updateMovie() {
-        MovieTask movieTask = new MovieTask(this);
-        movieTask.execute();
+    private Fragment findFragmentByPosition(int position) {
+        return getSupportFragmentManager().findFragmentByTag(
+                "android:switcher:" + viewPagerMovie.getId() + ":"
+                        + moviePagerAdapter.getItemId(position));
     }
 }

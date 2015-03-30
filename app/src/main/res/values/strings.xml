@@ -1,14 +1,45 @@
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
-    //main
+
+    <!--main-->
     <string name="app_name">Movie Releases</string>
     <string name="title_activity_detail">@string/details</string>
     <string name="title_activity_settings">@string/settings</string>
     <string name="action_settings">@string/settings</string>
 
-    //formatter
+    <!--formatter-->
     <string name="format_duration"><xliff:g id="minute">%d</xliff:g> minutes</string>
 
-    //global
+    <!--global-->
     <string name="details">Details</string>
     <string name="settings">Settings</string>
+
+    <!--sync interval's-->
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="fortnightly">Fortnightly</string>
+    <string name="monthly">Monthly</string>
+
+    <!-- SyncAdapter related -->
+    <string name="sync_account_type">moviereleases.gperez88.com</string>
+    <string name="content_authority">com.gperez88.moviereleases.app</string>
+
+    <!--setting-->
+    <string name="pref_sync_notification_category_label">Sync \u227A Notification Data</string>
+
+    <!-- Strings related to Sync preference-->
+    <string name="pref_sync_interval_key" translatable="false">pref_sync_interval_key</string>
+    <string name="pref_sync_interval_label" translatable="false">Sync Interval Data</string>
+    <string name="pref_sync_interval_default_value" translatable="false">86400</string>
+
+    <!-- Strings related to Notification preference -->
+    <string name="pref_last_notification">last_notification</string>
+
+    <!-- Strings related to Notification Enabled preference -->
+    <string name="pref_enable_notifications_key" translatable="false">enable_notifications</string>
+    <string name="pref_enable_notifications_label">Weather Notifications</string>
+
+    <string name="pref_enable_notifications_true">Enabled</string>
+    <string name="pref_enable_notifications_false">Not Enabled</string>
+    <string name="pref_enable_notifications_default" translatable="false">true</string>
+
 </resources>

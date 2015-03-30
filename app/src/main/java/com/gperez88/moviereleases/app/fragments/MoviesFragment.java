@@ -19,7 +19,7 @@ import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.activities.DetailActivity;
 import com.gperez88.moviereleases.app.adapters.MovieAdapter;
 import com.gperez88.moviereleases.app.data.MovieContract;
-import com.gperez88.moviereleases.app.tasks.MovieTask;
+import com.gperez88.moviereleases.app.services.MovieSyncAdapter;
 
 /**
  * Created by GPEREZ on 3/16/2015.
@@ -37,7 +37,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
             MovieContract.MovieEntry.COLUMN_RELEASE_DATE
     };
 
-    //indices column's
+    //index's column's
     public static final int COL_MOVIE_ID = 0;
     public static final int COL_MOVIE_TITLE = 1;
     public static final int COL_MOVIE_THUMBNAIL_URL = 2;
@@ -69,16 +69,13 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        GridView gridView =(GridView)rootView.findViewById(R.id.movie_gridview);
+        GridView gridView = (GridView) rootView.findViewById(R.id.movie_gridview);
         gridView.setAdapter(movieAdapter);
 
-        // We'll call our MainActivity
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // CursorAdapter returns a cursor at the correct position for getItem(), or null
-                // if it cannot seek to that position.
                 Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
                 if (cursor != null) {
                     Log.d(LOG_TAG, MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID)).toString());
@@ -105,15 +102,13 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     private void updateMovie() {
-        MovieTask movieTask = new MovieTask(getActivity());
-        movieTask.execute();
+        MovieSyncAdapter.syncImmediately(getActivity());
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String movieTypeArg = getArguments().getString(ARG_SECTION_MOVIE);
 
-        // Sort order:  Ascending, by date.
         String sortOrder = MovieContract.MovieEntry.COLUMN_TITLE + " DESC";
         Uri movieWithTypeUri = MovieContract.MovieEntry.buildMovieWithType(movieTypeArg);
 

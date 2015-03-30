@@ -1,6 +1,8 @@
 package com.gperez88.moviereleases.app.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.gperez88.moviereleases.app.R;
@@ -15,6 +17,13 @@ import java.util.Locale;
  */
 public class MovieUtils {
     private static final String LOG_TAG = MovieUtils.class.getSimpleName();
+    public static final int SECONDS_IN_DAY = 86400;
+
+    public static String getPreferredSyncInterval(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(context.getString(R.string.pref_sync_interval_key),
+                context.getString(R.string.pref_sync_interval_default_value));
+    }
 
     public static String formatDate(String dateStr) {
         SimpleDateFormat stringToDateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
@@ -24,7 +33,7 @@ public class MovieUtils {
             long dateMilliseconds = stringToDateFormatter.parse(dateStr).getTime();
             return millisecondsToDateFormatter.format(new Date(dateMilliseconds));
         } catch (ParseException e) {
-            Log.d(LOG_TAG,"Error parse date: "+ e.getMessage());
+            Log.d(LOG_TAG, "Error parse date: " + e.getMessage());
             e.printStackTrace();
         }
         return "";
