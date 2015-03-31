@@ -1,5 +1,6 @@
 <!-- Master layout. -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,11 +13,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/detail_cover_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/cover_layout_height"
-                android:scaleType="centerCrop" />
+                fresco:placeholderImage="@color/primary"
+                fresco:progressBarImage="@mipmap/ic_sync"
+                fresco:progressBarImageScaleType="centerInside"
+                fresco:progressBarAutoRotateInterval="1000"
+                fresco:actualImageScaleType="focusCrop" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -24,11 +29,15 @@
                 android:orientation="vertical"
                 android:padding="@dimen/medium_padding">
 
-                <ImageView
+                <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/detail_thumbnail_imageView"
                     android:layout_width="@dimen/thumbnail_layout_width"
                     android:layout_height="@dimen/thumbnail_layout_height"
-                    android:layout_marginTop="@dimen/thumbnail_layout_marginTop" />
+                    fresco:placeholderImage="@color/white"
+                    android:layout_marginTop="@dimen/thumbnail_layout_marginTop"
+                    fresco:progressBarImage="@mipmap/ic_sync"
+                    fresco:progressBarImageScaleType="centerInside"
+                    fresco:progressBarAutoRotateInterval="1000"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,7 +63,7 @@
                         android:id="@+id/detail_duration_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/MovieReleaseTheme.Body1Text"/>
+                        style="@style/MovieReleaseTheme.Body1Text" />
 
                 </LinearLayout>
 
@@ -64,7 +73,7 @@
                     android:layout_height="wrap_content"
                     style="@style/MovieReleaseTheme.Body1Text"
                     android:layout_below="@+id/detail_thumbnail_imageView"
-                    android:layout_marginTop="@dimen/medium_padding"/>
+                    android:layout_marginTop="@dimen/medium_padding" />
 
             </RelativeLayout>
 

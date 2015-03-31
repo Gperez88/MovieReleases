@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.adapters.CursorFragmentPagerAdapter;
 import com.gperez88.moviereleases.app.adapters.MovieFragmentPagerAdapter;
@@ -35,6 +36,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Fresco.initialize(this);
 
         mSyncInterval = MovieUtils.getPreferredSyncInterval(this);
 

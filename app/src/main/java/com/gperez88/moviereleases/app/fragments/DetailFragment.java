@@ -2,6 +2,7 @@ package com.gperez88.moviereleases.app.fragments;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -10,13 +11,12 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.data.MovieContract;
 import com.gperez88.moviereleases.app.utils.MovieUtils;
-import com.koushikdutta.ion.Ion;
 
 /**
  * Created by GPEREZ on 3/21/2015.
@@ -47,8 +47,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public static final int COL_MOVIE_TYPE_MOVIE_ID = 6;
 
 
-    private ImageView detailThumbnailImageView;
-    private ImageView detailCoverImageView;
+    private SimpleDraweeView detailThumbnailImageView;
+    private SimpleDraweeView  detailCoverImageView;
     private TextView detailTitleTextView;
     private TextView detailReleaseDateTextView;
     private TextView detailDurationTextView;
@@ -62,8 +62,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-        detailThumbnailImageView = (ImageView) rootView.findViewById(R.id.detail_thumbnail_imageView);
-        detailCoverImageView = (ImageView) rootView.findViewById(R.id.detail_cover_imageView);
+        detailThumbnailImageView = (SimpleDraweeView ) rootView.findViewById(R.id.detail_thumbnail_imageView);
+        detailCoverImageView = (SimpleDraweeView ) rootView.findViewById(R.id.detail_cover_imageView);
         detailTitleTextView = (TextView) rootView.findViewById(R.id.detail_title_textView);
         detailReleaseDateTextView = (TextView) rootView.findViewById(R.id.detail_release_date_textView);
         detailDurationTextView = (TextView) rootView.findViewById(R.id.detail_duration_textView);
@@ -101,13 +101,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data != null && data.moveToFirst()) {
             String thumbnailUrl = data.getString(COL_MOVIE_THUMBNAIL_URL);
+            Uri thumbnailUri = Uri.parse(thumbnailUrl);
 
-            Ion.with(detailThumbnailImageView)
-                    .load(thumbnailUrl);
-
-            Ion.with(detailCoverImageView)
-                    .placeholder(R.drawable.default_image)
-                    .load(thumbnailUrl);
+            detailThumbnailImageView.setImageURI(thumbnailUri);
+            detailCoverImageView.setImageURI(thumbnailUri);
 
             String title = data.getString(COL_MOVIE_TITLE);
             detailTitleTextView.setText(title);

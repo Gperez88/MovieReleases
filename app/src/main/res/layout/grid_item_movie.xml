@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/touch_selector"
     android:orientation="horizontal">
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/list_item_thumbnail"
         android:layout_width="@dimen/list_item_thumbnail_layout_width"
         android:layout_height="@dimen/list_item_thumbnail_layout_height"
-        android:src="@drawable/default_image"
-        android:scaleType="fitXY" />
+        fresco:placeholderImage="@color/primary"
+        fresco:progressBarImage="@mipmap/ic_sync"
+        fresco:progressBarImageScaleType="centerInside"
+        fresco:progressBarAutoRotateInterval="1000"
+        fresco:actualImageScaleType="fitXY" />
 
     <LinearLayout
         android:layout_height="wrap_content"
