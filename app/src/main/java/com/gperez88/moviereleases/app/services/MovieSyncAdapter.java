@@ -2,19 +2,33 @@ package com.gperez88.moviereleases.app.services;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.SyncResult;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
+import android.text.format.Time;
 import android.util.Log;
 
 import com.gperez88.moviereleases.app.R;
+import com.gperez88.moviereleases.app.activities.MainActivity;
 import com.gperez88.moviereleases.app.data.MovieContract;
 import com.gperez88.moviereleases.app.utils.MovieUtils;
 
@@ -46,7 +60,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
     // Interval at which to sync with the weather, in seconds.
     // 60 seconds (1 minute) * 180 = 3 hours
     public static final int SECONDS_IN_DAY = 86400;
-    private static final long DAY_IN_MILLIS = 1000 * SECONDS_IN_DAY;
     private static final int MOVIE_NOTIFICATION_ID = 3004;
 
     public MovieSyncAdapter(Context context, boolean autoInitialize) {
@@ -146,7 +159,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
         syncImmediately(context);
     }
 
-    public static void configurePeriodicSync(Context context){
+    public static void configurePeriodicSync(Context context) {
         /*
          * Since we've created an account
          */
@@ -193,8 +206,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
 
             URL url = new URL(builtUri.toString());
 
-            Log.v(LOG_TAG, "Built URI " + builtUri.toString());
-
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
@@ -215,8 +226,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
                 return null;
             }
             jsonStr = buffer.toString();
-
-            Log.v(LOG_TAG, "Movie JSON String: " + jsonStr);
 
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
@@ -302,6 +311,15 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
 
             Vector<ContentValues> cVVector = new Vector<>(movieArrayJson.length());
 
+            Time dayTime = new Time();
+            dayTime.setToNow();
+
+            // we start at the day returned by local time. Otherwise this is a mess.
+            int julianStartDay = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
+
+            // now we work exclusively in UTC
+            dayTime = new Time();
+
             for (int i = 0; i < movieArrayJson.length(); i++) {
 
                 String title;
@@ -310,12 +328,14 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
                 String releaseDates;
                 String duration;
                 long movieTypeId;
+                long dateTime;
 
                 JSONObject movie = movieArrayJson.getJSONObject(i);
-                Log.v(LOG_TAG, "Movie Object: " + movie.toString());
+
+                // Cheating to convert this to UTC time, which is what we want anyhow
+                dateTime = dayTime.setJulianDay(julianStartDay + i);
 
                 title = movie.getString(TITLE);
-                Log.d(LOG_TAG, "Title: " + title);
                 thumbnailUrl = movie.getString(THUMBNAIL_URL);
                 synopsis = movie.getString(SYNOPSIS);
                 releaseDates = movie.getString(RELEASE_DATE);
@@ -341,6 +361,8 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
                 cVVector.toArray(cvArray);
                 inserted = getContext().getContentResolver().bulkInsert(MovieContract.MovieEntry.CONTENT_URI, cvArray);
+
+                notifyWeather();
             }
 
             Log.d(LOG_TAG, "MovieTask Complete. " + inserted + " Movie Inserted");
@@ -351,4 +373,70 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
+    private void notifyWeather() {
+        Context context = getContext();
+        //checking the last update and notify if it' the first of the day
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String displayNotificationsKey = context.getString(R.string.pref_enable_notifications_key);
+        boolean displayNotifications = prefs.getBoolean(displayNotificationsKey,
+                Boolean.parseBoolean(context.getString(R.string.pref_enable_notifications_default)));
+
+        if (displayNotifications) {
+
+            Uri movieUri = MovieContract.MovieEntry.CONTENT_URI;
+            // we'll query our contentProvider, as always
+            Cursor cursor = context.getContentResolver().query(movieUri, null, null, null, null);
+
+            String lastNotificationKey = context.getString(R.string.pref_last_notification);
+            int lastSyncCountMovie = prefs.getInt(lastNotificationKey, 0);
+
+            final boolean THERE_ARE_NEW_MOVIE = lastSyncCountMovie != 0 && lastSyncCountMovie < cursor.getCount();
+
+            if (THERE_ARE_NEW_MOVIE) {
+
+                int newCountMovie = cursor.getCount() - lastSyncCountMovie;
+
+                Log.d(LOG_TAG, "Cursor Count: " + newCountMovie);
+
+                if (cursor.moveToFirst()) {
+                    Resources resources = context.getResources();
+                    Bitmap largeIcon = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher);
+                    String title = context.getString(R.string.app_name);
+                    String contentText = String.format(context.getString(R.string.format_notification), newCountMovie);
+
+                    NotificationCompat.Builder mBuilder =
+                            new NotificationCompat.Builder(getContext())
+                                    .setColor(resources.getColor(R.color.primary))
+                                    .setLights(Color.WHITE, 5000, 5000)
+                                    .setSmallIcon(R.mipmap.ic_art_notification)
+                                    .setLargeIcon(largeIcon)
+                                    .setContentTitle(title)
+                                    .setContentText(contentText);
+
+                    Intent resultIntent = new Intent(context, MainActivity.class);
+
+                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+                    stackBuilder.addNextIntent(resultIntent);
+                    PendingIntent resultPendingIntent =
+                            stackBuilder.getPendingIntent(
+                                    0,
+                                    PendingIntent.FLAG_UPDATE_CURRENT
+                            );
+                    mBuilder.setContentIntent(resultPendingIntent);
+
+                    NotificationManager mNotificationManager =
+                            (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                    mNotificationManager.notify(MOVIE_NOTIFICATION_ID, mBuilder.build());
+
+                }
+            }
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt(lastNotificationKey, cursor.getCount());
+            editor.commit();
+
+            cursor.close();
+        }
+
+    }
 }
