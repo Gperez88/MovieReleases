@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.adapters.CursorFragmentPagerAdapter;
@@ -20,15 +21,15 @@ import com.gperez88.moviereleases.app.data.MovieContract;
 import com.gperez88.moviereleases.app.fragments.MoviesFragment;
 import com.gperez88.moviereleases.app.services.MovieSyncAdapter;
 import com.gperez88.moviereleases.app.utils.MovieUtils;
-import com.gperez88.moviereleases.app.utils.view.SlidingTabLayout;
 
 
 public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int MOVIE_TYPE_LOADER = 0;
+    private static final String POSITION_VIEWPAGER = "position_viewpager";
 
     private CursorFragmentPagerAdapter moviePagerAdapter;
     private ViewPager viewPagerMovie;
-    private SlidingTabLayout slidingTabLayout;
+    private PagerSlidingTabStrip pagerSlidingTabStrip;
 
     private String mSyncInterval;
 
@@ -44,30 +45,18 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         viewPagerMovie = (ViewPager) findViewById(R.id.viewPager_movie);
         viewPagerMovie.setAdapter(moviePagerAdapter);
 
-        // Give the SlidingTabLayout the ViewPager
-        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.slidingTabLayout_movie);
-
-        //Customize tab view
-        slidingTabLayout.setCustomTabView(R.layout.custom_tab, 0);
-
-        slidingTabLayout.setMeasureAllChildren(true);
-
-        // Customize tab color
-        slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.accent);
-            }
-
-            @Override
-            public int getDividerColor(int position) {
-                return getResources().getColor(android.R.color.transparent);
-            }
-
-        });
+        pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.pagerslingtagstring_movie);
+        pagerSlidingTabStrip.setViewPager(viewPagerMovie);
 
         getSupportActionBar().setElevation(0f);
         MovieSyncAdapter.initializeSyncAdapter(this);
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(POSITION_VIEWPAGER, viewPagerMovie.getCurrentItem());
     }
 
     @Override
@@ -76,9 +65,9 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         getSupportLoaderManager().initLoader(MOVIE_TYPE_LOADER, null, this);
 
         String syncInterval = MovieUtils.getPreferredSyncInterval(this);
-        if(syncInterval != null && !syncInterval.equals(mSyncInterval)){
+        if (syncInterval != null && !syncInterval.equals(mSyncInterval)) {
             MoviesFragment moviesFragment = (MoviesFragment) findFragmentByPosition(viewPagerMovie.getCurrentItem());
-            if(null != moviesFragment){
+            if (null != moviesFragment) {
                 MovieSyncAdapter.configurePeriodicSync(this);
             }
             mSyncInterval = syncInterval;
@@ -117,7 +106,6 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         moviePagerAdapter.swapCursor(data);
-        slidingTabLayout.setViewPager(viewPagerMovie);
     }
 
     @Override

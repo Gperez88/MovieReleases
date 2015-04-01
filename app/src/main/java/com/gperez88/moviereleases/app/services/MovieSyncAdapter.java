@@ -24,7 +24,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.text.format.Time;
 import android.util.Log;
 
 import com.gperez88.moviereleases.app.R;
@@ -57,8 +56,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final String MOVIE_LIST = "movie";
     private static final String MOVIE_TYPE_LIST = "type_movie";
 
-    // Interval at which to sync with the weather, in seconds.
-    // 60 seconds (1 minute) * 180 = 3 hours
+    // Interval at which to sync, in seconds.
     public static final int SECONDS_IN_DAY = 86400;
     private static final int MOVIE_NOTIFICATION_ID = 3004;
 
@@ -279,7 +277,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
             }
 
             int inserted = 0;
-            // add to database
+
             if (cVVector.size() > 0) {
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
                 cVVector.toArray(cvArray);
@@ -311,15 +309,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
 
             Vector<ContentValues> cVVector = new Vector<>(movieArrayJson.length());
 
-            Time dayTime = new Time();
-            dayTime.setToNow();
-
-            // we start at the day returned by local time. Otherwise this is a mess.
-            int julianStartDay = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
-
-            // now we work exclusively in UTC
-            dayTime = new Time();
-
             for (int i = 0; i < movieArrayJson.length(); i++) {
 
                 String title;
@@ -328,12 +317,8 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
                 String releaseDates;
                 String duration;
                 long movieTypeId;
-                long dateTime;
 
                 JSONObject movie = movieArrayJson.getJSONObject(i);
-
-                // Cheating to convert this to UTC time, which is what we want anyhow
-                dateTime = dayTime.setJulianDay(julianStartDay + i);
 
                 title = movie.getString(TITLE);
                 thumbnailUrl = movie.getString(THUMBNAIL_URL);
@@ -341,7 +326,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
                 releaseDates = movie.getString(RELEASE_DATE);
                 duration = movie.getString(DURATION);
                 movieTypeId = movie.getLong(MOVIE_TYPE_ID);
-
 
                 ContentValues movieValues = new ContentValues();
 
@@ -375,7 +359,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void notifyWeather() {
         Context context = getContext();
-        //checking the last update and notify if it' the first of the day
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String displayNotificationsKey = context.getString(R.string.pref_enable_notifications_key);
         boolean displayNotifications = prefs.getBoolean(displayNotificationsKey,
@@ -384,7 +367,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
         if (displayNotifications) {
 
             Uri movieUri = MovieContract.MovieEntry.CONTENT_URI;
-            // we'll query our contentProvider, as always
             Cursor cursor = context.getContentResolver().query(movieUri, null, null, null, null);
 
             String lastNotificationKey = context.getString(R.string.pref_last_notification);
@@ -395,8 +377,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
             if (THERE_ARE_NEW_MOVIE) {
 
                 int newCountMovie = cursor.getCount() - lastSyncCountMovie;
-
-                Log.d(LOG_TAG, "Cursor Count: " + newCountMovie);
 
                 if (cursor.moveToFirst()) {
                     Resources resources = context.getResources();

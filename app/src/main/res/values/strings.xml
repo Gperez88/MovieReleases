@@ -5,6 +5,7 @@
     <string name="title_activity_detail">@string/details</string>
     <string name="title_activity_settings">@string/settings</string>
     <string name="action_settings">@string/settings</string>
+    <string name="action_share">Share</string>
 
     <!--formatter-->
     <string name="format_duration"><xliff:g id="minute">%d</xliff:g> minutes</string>

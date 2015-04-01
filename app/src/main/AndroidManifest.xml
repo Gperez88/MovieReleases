@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gperez88.moviereleases.app" >
+    package="com.gperez88.moviereleases.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Permissions required by the sync adapter -->
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
@@ -13,11 +14,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/MovieRelease" >
+        android:theme="@style/MovieRelease">
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Main" >
+            android:theme="@style/Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +28,7 @@
         <activity
             android:name=".activities.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:parentActivityName=".activities.MainActivity" >
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.gperez88.moviereleases.app.activities.MainActivity" />
@@ -36,7 +37,7 @@
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/SettingsTheme" >
+            android:theme="@style/SettingsTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.gperez88.moviereleases.app.activities.MainActivity" />
@@ -47,7 +48,7 @@
             android:authorities="com.gperez88.moviereleases.app" />
 
         <!-- SyncAdapter's dummy authentication service -->
-        <service android:name=".services.MovieAuthenticatorService" >
+        <service android:name=".services.MovieAuthenticatorService">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
@@ -60,7 +61,7 @@
         <!-- The SyncAdapter service -->
         <service
             android:name=".services.MovieSyncService"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>
@@ -70,6 +71,6 @@
                 android:resource="@xml/syncadapter" />
         </service>
 
-     </application>
+    </application>
 
 </manifest>

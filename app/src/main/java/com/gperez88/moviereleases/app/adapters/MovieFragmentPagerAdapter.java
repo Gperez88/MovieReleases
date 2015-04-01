@@ -8,13 +8,10 @@ import android.support.v4.app.FragmentManager;
 import com.gperez88.moviereleases.app.data.MovieContract;
 import com.gperez88.moviereleases.app.fragments.MoviesFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Gaperez on 3/26/2015.
  */
-public class MovieFragmentPagerAdapter extends CursorFragmentPagerAdapter {
+public class MovieFragmentPagerAdapter extends CursorFragmentPagerAdapter{
     private static final String LOG_TAG = MovieFragmentPagerAdapter.class.getSimpleName();
 
     public MovieFragmentPagerAdapter(Context mContext, FragmentManager fm, Cursor cursor) {
@@ -46,17 +43,5 @@ public class MovieFragmentPagerAdapter extends CursorFragmentPagerAdapter {
     private <T> T getFieldFromCursor(Cursor cursor, String columnFieldName) {
         int indexColumn = cursor.getColumnIndexOrThrow(columnFieldName);
         return (T) cursor.getString(indexColumn);
-    }
-
-    private <T> List<T> getFieldFromCursor(Cursor cursor, List<String> columnFieldNames){
-        List<T> list = new ArrayList<>();
-
-        for(String columnFieldName: columnFieldNames){
-            int indexColumn = cursor.getColumnIndexOrThrow(columnFieldName);
-            String fieldValue = cursor.getString(indexColumn);
-            list.add((T) fieldValue);
-        }
-
-        return list;
     }
 }

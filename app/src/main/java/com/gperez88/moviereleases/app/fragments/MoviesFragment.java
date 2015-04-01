@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.gperez88.moviereleases.app.R;
 import com.gperez88.moviereleases.app.activities.DetailActivity;
 import com.gperez88.moviereleases.app.adapters.MovieAdapter;
 import com.gperez88.moviereleases.app.data.MovieContract;
-import com.gperez88.moviereleases.app.services.MovieSyncAdapter;
 
 /**
  * Created by GPEREZ on 3/16/2015.
@@ -60,6 +58,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setHasOptionsMenu(true);
     }
 
@@ -78,8 +77,6 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
                 if (cursor != null) {
-                    Log.d(LOG_TAG, MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID)).toString());
-
                     Intent intent = new Intent(getActivity(), DetailActivity.class)
                             .setData(MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID)));
                     startActivity(intent);
@@ -94,15 +91,6 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     public void onActivityCreated(Bundle savedInstanceState) {
         getLoaderManager().initLoader(MOVIE_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
-    }
-
-    public void onLocationChanged() {
-        updateMovie();
-        getLoaderManager().restartLoader(MOVIE_LOADER, null, this);
-    }
-
-    private void updateMovie() {
-        MovieSyncAdapter.syncImmediately(getActivity());
     }
 
     @Override
