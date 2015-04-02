@@ -1,0 +1,83 @@
+<!-- Master layout. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/detail_cover_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cover_layout_height"
+                fresco:placeholderImage="@color/primary"
+                fresco:progressBarImage="@mipmap/ic_sync"
+                fresco:progressBarImageScaleType="centerInside"
+                fresco:progressBarAutoRotateInterval="1000"
+                fresco:actualImageScaleType="focusCrop" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/medium_padding">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/detail_thumbnail_imageView"
+                    android:layout_width="@dimen/thumbnail_layout_width"
+                    android:layout_height="@dimen/thumbnail_layout_height"
+                    fresco:placeholderImage="@color/white"
+                    android:layout_marginTop="@dimen/thumbnail_layout_marginTop"
+                    fresco:progressBarImage="@mipmap/ic_sync"
+                    fresco:progressBarImageScaleType="centerInside"
+                    fresco:progressBarAutoRotateInterval="1000"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/small_margin"
+                    android:layout_marginTop="@dimen/cover_layout_height"
+                    android:layout_toRightOf="@+id/detail_thumbnail_imageView">
+
+                    <TextView
+                        android:id="@+id/detail_title_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/MovieReleaseTheme.TitleText" />
+
+                    <TextView
+                        android:id="@+id/detail_release_date_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/MovieReleaseTheme.Body1Text" />
+
+                    <TextView
+                        android:id="@+id/detail_duration_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/MovieReleaseTheme.Body1Text" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/synopsis_detail_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/MovieReleaseTheme.Body1Text"
+                    android:layout_below="@+id/detail_thumbnail_imageView"
+                    android:layout_marginTop="@dimen/medium_padding" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+</ScrollView>

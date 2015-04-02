@@ -8,9 +8,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
-import com.gperez88.moviereleases.app.data.MovieContract.CountryEntry;
-import com.gperez88.moviereleases.app.data.MovieContract.MovieEntry;
-
 /**
  * Created by GPEREZ on 3/16/2015.
  */
@@ -20,34 +17,18 @@ public class TestProvider extends AndroidTestCase {
 
     public void deleteAllRecordsFromProvider() {
         mContext.getContentResolver().delete(
-                MovieEntry.CONTENT_URI,
+                MovieContract.MovieEntry.CONTENT_URI,
                 null,
                 null
         );
-        mContext.getContentResolver().delete(
-                CountryEntry.CONTENT_URI,
-                null,
-                null
-        );
-
         Cursor cursor = mContext.getContentResolver().query(
-                MovieEntry.CONTENT_URI,
+                MovieContract.MovieEntry.CONTENT_URI,
                 null,
                 null,
                 null,
                 null
         );
-        assertEquals("Error: Records not deleted from Weather table during delete", 0, cursor.getCount());
-        cursor.close();
-
-        cursor = mContext.getContentResolver().query(
-                CountryEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                null
-        );
-        assertEquals("Error: Records not deleted from Location table during delete", 0, cursor.getCount());
+        assertEquals("Error: Records not deleted from Movie table during delete", 0, cursor.getCount());
         cursor.close();
     }
 
@@ -86,32 +67,26 @@ public class TestProvider extends AndroidTestCase {
 
     public void testGetType() {
         // content://com.gperez88.moviereleases.app/movie/
-        String type = mContext.getContentResolver().getType(MovieEntry.CONTENT_URI);
+        String type = mContext.getContentResolver().getType(MovieContract.MovieEntry.CONTENT_URI);
         // vnd.android.cursor.dir/com.gperez88.moviereleases.app/movie
         assertEquals("Error: the MovieEntry CONTENT_URI should return MovieEntry.CONTENT_TYPE",
-                MovieEntry.CONTENT_TYPE, type);
+                MovieContract.MovieEntry.CONTENT_TYPE, type);
 
-        String testCountry = "us";
-        // content://com.gperez88.moviereleases.app/movie/us
+        long movieId = 1L;
+        // content://com.gperez88.moviereleases.app/movie/1
         type = mContext.getContentResolver().getType(
-                MovieEntry.buildMovieCountry(testCountry));
+                MovieContract.MovieEntry.buildMovieUri(movieId));
         // vnd.android.cursor.dir/com.gperez88.moviereleases.app/movie
-        assertEquals("Error: the MovieEntry CONTENT_URI with country should return MovieEntry.CONTENT_TYPE",
-                MovieEntry.CONTENT_TYPE, type);
+        assertEquals("Error: the MovieEntry CONTENT_URI with movieId should return MovieEntry.CONTENT_ITEM_TYPE",
+                MovieContract.MovieEntry.CONTENT_ITEM_TYPE, type);
 
-        String testSection = "opening";
-        // content://com.gperez88.moviereleases.app/movie/us/opening
+        String testType = "Action & Adventure";
+        // content://com.gperez88.moviereleases.app/movie/Action & Adventure
         type = mContext.getContentResolver().getType(
-                MovieEntry.buildMovieCountryWithSeccion(testCountry, testSection));
+                MovieContract.MovieEntry.buildMovieWithType(testType));
         // vnd.android.cursor.dir/com.gperez88.moviereleases.app/movie
-        assertEquals("Error: the MovieEntry CONTENT_URI with country and section should return MovieEntry.CONTENT_TYPE",
-                MovieEntry.CONTENT_TYPE, type);
-
-        // content://com.example.android.sunshine.app/location/
-        type = mContext.getContentResolver().getType(CountryEntry.CONTENT_URI);
-        // vnd.android.cursor.dir/com.example.android.sunshine.app/location
-        assertEquals("Error: the CountryEntry CONTENT_URI should return CountryEntry.CONTENT_TYPE",
-                CountryEntry.CONTENT_TYPE, type);
+        assertEquals("Error: the MovieEntry CONTENT_URI with type should return MovieEntry.CONTENT_TYPE",
+                MovieContract.MovieEntry.CONTENT_TYPE, type);
     }
 
     public void testBasicWeatherQuery() {
@@ -119,20 +94,19 @@ public class TestProvider extends AndroidTestCase {
         MovieDbHelper dbHelper = new MovieDbHelper(mContext);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        long countryRowId = TestUtils.insertTestCountryValues(mContext);
-        String section = "opening";
+        long type = 1L;
 
         // Fantastic.  Now that we have a location, add some weather!
-        ContentValues weatherValues = TestUtils.createTestMovieValues(countryRowId, section);
+        ContentValues weatherValues = TestUtils.createTestMovieValues(type);
 
-        long weatherRowId = db.insert(MovieEntry.TABLE_NAME, null, weatherValues);
+        long weatherRowId = db.insert(MovieContract.MovieEntry.TABLE_NAME, null, weatherValues);
         assertTrue("Unable to Insert MovieEntry into the Database", weatherRowId != -1);
 
         db.close();
 
         // Test the basic content provider query
         Cursor weatherCursor = mContext.getContentResolver().query(
-                MovieEntry.CONTENT_URI,
+                MovieContract.MovieEntry.CONTENT_URI,
                 null,
                 null,
                 null,

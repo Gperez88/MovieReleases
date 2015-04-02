@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
-import com.gperez88.moviereleases.app.data.MovieContract.CountryEntry;
 import com.gperez88.moviereleases.app.data.MovieContract.MovieEntry;
 
 import java.util.Map;
@@ -17,25 +16,24 @@ import java.util.Set;
  */
 public class TestUtils extends AndroidTestCase {
 
-    static ContentValues createTestCountryValues() {
+    static ContentValues createTestTypeMovieValues() {
         // Create a new map of values, where column names are the keys
         ContentValues testValues = new ContentValues();
-        testValues.put(CountryEntry.COLUMN_CODE, "DO");
-        testValues.put(CountryEntry.COLUMN_NAME, "Dominican Republic");
+        testValues.put(MovieContract.MovieTypeEntry.COLUMN_TYPE, "Action & Adventure");
+        testValues.put(MovieContract.MovieTypeEntry.COLUMN_DESCRIPTION, "Action & Adventure");
 
         return testValues;
     }
 
-    static ContentValues createTestMovieValues(long countryRowId,String section) {
+    static ContentValues createTestMovieValues(long type) {
         // Create a new map of values, where column names are the keys
         ContentValues testValues = new ContentValues();
         testValues.put(MovieEntry.COLUMN_THUMBNAIL_URL, "http://resizing.flixster.com/YKGbQ15uM3ETr8gBGCoO0g4ML0Y=/54x80/dkpu1ddg7pbsk.cloudfront.net/movie/11/18/15/11181570_ori.jpg");
         testValues.put(MovieEntry.COLUMN_TITLE, "Cinderella");
-        testValues.put(MovieEntry.COLUMN_YEAR, 2015);
+        testValues.put(MovieEntry.COLUMN_DURATION, 201);
         testValues.put(MovieEntry.COLUMN_RELEASE_DATE, "2015-03-13");
         testValues.put(MovieEntry.COLUMN_SYNOPSIS, "Cate Blanchett stars in this new vision of the Cinderella tale from director Kenneth Branagh and the screenwriting team of Chris Weitz and Aline Brosh McKenna for Disney Pictures. ~ Jeremy Wheeler, Rovi");
-        testValues.put(MovieEntry.COLUMN_COUNTRY_ID, countryRowId);
-        testValues.put(MovieEntry.COLUMN_SECTION, section);
+        testValues.put(MovieEntry.COLUMN_TYPE_MOVIE_ID, type);
 
         return testValues;
     }
@@ -59,18 +57,14 @@ public class TestUtils extends AndroidTestCase {
         }
     }
 
-    /*
-    Students: You can uncomment this function once you have finished creating the
-    LocationEntry part of the WeatherContract as well as the WeatherDbHelper.
- */
-    static long insertTestCountryValues(Context context) {
+    static long insertTestTypeMovieValues(Context context) {
         // insert our test records into the database
         MovieDbHelper dbHelper = new MovieDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues testValues = TestUtils.createTestCountryValues();
+        ContentValues testValues = TestUtils.createTestTypeMovieValues();
 
         long countryRowId;
-        countryRowId = db.insert(CountryEntry.TABLE_NAME, null, testValues);
+        countryRowId = db.insert(MovieContract.MovieTypeEntry.TABLE_NAME, null, testValues);
 
         // Verify we got a row back.
         assertTrue("Error: Failure to insert North Pole Location Values", countryRowId != -1);

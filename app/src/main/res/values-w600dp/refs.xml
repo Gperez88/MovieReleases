@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="layout" name="grid_item_movie">@layout/grid_item_movie_wide</item>
+</resources>

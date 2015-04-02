@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_item_thumbnail_layout_width">144dp</dimen>
+    <dimen name="list_item_thumbnail_layout_height">216dp</dimen>
+
+    <dimen name="thumbnail_layout_width">192dp</dimen>
+    <dimen name="thumbnail_layout_height">288dp</dimen>
+
+    <dimen name="cover_layout_height">400dp</dimen>
+    <dimen name="thumbnail_layout_marginTop">340dp</dimen>
+</resources>

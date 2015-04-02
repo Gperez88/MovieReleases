@@ -1,0 +1,82 @@
+<!-- Master layout. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/detail_cover_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cover_layout_height"
+                fresco:placeholderImage="@color/primary"
+                fresco:progressBarImage="@mipmap/ic_sync"
+                fresco:progressBarImageScaleType="centerInside"
+                fresco:progressBarAutoRotateInterval="1000"
+                fresco:actualImageScaleType="focusCrop"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/thumbnail_layout_marginTop"
+                android:layout_marginLeft="@dimen/large_padding"
+                android:layout_marginRight="@dimen/large_padding"
+                android:layout_marginBottom="@dimen/large_padding">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/detail_thumbnail_imageView"
+                    android:layout_width="@dimen/thumbnail_layout_width"
+                    android:layout_height="@dimen/thumbnail_layout_height"
+                    fresco:placeholderImage="@color/white"
+                    fresco:progressBarImage="@mipmap/ic_sync"
+                    fresco:progressBarImageScaleType="centerInside"
+                    fresco:progressBarAutoRotateInterval="1000"
+                    fresco:actualImageScaleType="fitXY"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_toRightOf="@+id/detail_thumbnail_imageView"
+                    android:padding="@dimen/medium_padding">
+
+                    <TextView
+                        android:id="@+id/detail_title_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/MovieReleaseTheme.TitleText" />
+
+                    <TextView
+                        android:id="@+id/detail_release_date_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/MovieReleaseTheme.Body1Text" />
+
+                    <TextView
+                        android:id="@+id/detail_duration_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/MovieReleaseTheme.Body1Text" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/synopsis_detail_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/MovieReleaseTheme.Body1Text"
+                    android:layout_below="@+id/detail_thumbnail_imageView"
+                    android:padding="@dimen/medium_margin" />
+            </RelativeLayout>
+        </FrameLayout>
+    </LinearLayout>
+</ScrollView>

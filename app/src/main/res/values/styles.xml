@@ -1,10 +1,41 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="MovieReleaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="MovieRelease" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
+    </style>
+
+    <!-- Main activity theme. -->
+    <style name="Main" parent="MovieRelease">
+        <item name="actionBarStyle">@style/ActionBar.Solid.MovieRelease.NoTitle</item>
+    </style>
+
+    <!-- Settings activity theme. -->
+    <style name="SettingsTheme" parent="MovieRelease"></style>
+
+    <!-- main activity action bar styles -->
+    <style name="ActionBar.Solid.MovieRelease.NoTitle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="displayOptions">useLogo|showHome</item>
+        <item name="logo">@mipmap/ic_logo</item>
+    </style>
+
+    <!-- style text -->
+    <style name="MovieReleaseTheme.TitleText" parent="Base.TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="MovieReleaseTheme.SubheadText" parent="Base.TextAppearance.AppCompat.Subhead">
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="MovieReleaseTheme.Body1Text" parent="Base.TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/secondary_text</item>
+    </style>
+
+    <style name="MovieReleaseTheme.Body2Text.Inverse" parent="Base.TextAppearance.AppCompat.Body2">
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>

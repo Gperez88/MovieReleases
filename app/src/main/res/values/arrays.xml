@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_sync_interval_options">
+        <item>@string/daily</item>
+        <item>@string/weekly</item>
+        <item>@string/fortnightly</item>
+        <item>@string/monthly</item>
+    </string-array>
+
+    <!--values expressed in seconds-->
+   <string-array name="pref_sync_interval_values">
+        <item>86400</item>
+        <item>604800</item>
+        <item>1209600</item>
+        <item>2629743</item>
+    </string-array>
+</resources>
