@@ -16,4 +16,6 @@
 
     <dimen name="cover_layout_height">200dp</dimen>
     <dimen name="thumbnail_layout_marginTop">170dp</dimen>
+
+    <dimen name="indicator_height">2dp</dimen>
 </resources>

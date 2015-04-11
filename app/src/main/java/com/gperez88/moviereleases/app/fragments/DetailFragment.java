@@ -120,7 +120,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             String synopsis = data.getString(COL_MOVIE_SYNOPSIS);
             synopsisDetailTextView.setText(synopsis);
 
-            mMovie = String.format("title: %s - date release: %s - duration: %s", title, MovieUtils.formatDate(date), duration);
+            mMovie = String.format(getString(R.string.format_shared), title, MovieUtils.formatDate(date), duration);
         }
     }
 

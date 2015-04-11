@@ -7,9 +7,19 @@
     <string name="action_settings">@string/settings</string>
     <string name="action_share">Share</string>
 
+    <!-- movie type -->
+    <string name="action_adventure_type">Action &amp; Adventure</string>
+    <string name="animation_type">Animation</string>
+    <string name="comedy_type">Comedy</string>
+    <string name="terror_type">Terror</string>
+
     <!--formatter-->
     <string name="format_duration"><xliff:g id="minute">%d</xliff:g> minutes</string>
     <string name="format_notification">There are <xliff:g id="count">%d</xliff:g> new movies</string>
+    <string name="format_shared">Title: <xliff:g id="title">%s</xliff:g>
+        - Date release: <xliff:g id="date">%s</xliff:g>
+        - Duration: <xliff:g id="duration">%d</xliff:g>
+    </string>
 
     <!--global-->
     <string name="details">Details</string>

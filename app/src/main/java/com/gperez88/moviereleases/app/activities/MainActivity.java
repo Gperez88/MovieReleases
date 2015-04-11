@@ -1,12 +1,8 @@
 package com.gperez88.moviereleases.app.activities;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -15,19 +11,16 @@ import android.view.MenuItem;
 import com.astuetz.PagerSlidingTabStrip;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.gperez88.moviereleases.app.R;
-import com.gperez88.moviereleases.app.adapters.CursorFragmentPagerAdapter;
 import com.gperez88.moviereleases.app.adapters.MovieFragmentPagerAdapter;
-import com.gperez88.moviereleases.app.data.MovieContract;
 import com.gperez88.moviereleases.app.fragments.MoviesFragment;
 import com.gperez88.moviereleases.app.services.MovieSyncAdapter;
 import com.gperez88.moviereleases.app.utils.MovieUtils;
 
 
-public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    private static final int MOVIE_TYPE_LOADER = 0;
+public class MainActivity extends ActionBarActivity {
     private static final String POSITION_VIEWPAGER = "position_viewpager";
 
-    private CursorFragmentPagerAdapter moviePagerAdapter;
+    private MovieFragmentPagerAdapter moviePagerAdapter;
     private ViewPager viewPagerMovie;
     private PagerSlidingTabStrip pagerSlidingTabStrip;
 
@@ -41,7 +34,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
 
         mSyncInterval = MovieUtils.getPreferredSyncInterval(this);
 
-        moviePagerAdapter = new MovieFragmentPagerAdapter(this, getSupportFragmentManager(), null);
+        moviePagerAdapter = new MovieFragmentPagerAdapter(this, getSupportFragmentManager());
         viewPagerMovie = (ViewPager) findViewById(R.id.viewPager_movie);
         viewPagerMovie.setAdapter(moviePagerAdapter);
 
@@ -62,7 +55,6 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     @Override
     protected void onResume() {
         super.onResume();
-        getSupportLoaderManager().initLoader(MOVIE_TYPE_LOADER, null, this);
 
         String syncInterval = MovieUtils.getPreferredSyncInterval(this);
         if (syncInterval != null && !syncInterval.equals(mSyncInterval)) {
@@ -91,26 +83,6 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this,
-                MovieContract.MovieTypeEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                null);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        moviePagerAdapter.swapCursor(data);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        moviePagerAdapter.swapCursor(null);
     }
 
     private Fragment findFragmentByPosition(int position) {

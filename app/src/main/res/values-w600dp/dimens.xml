@@ -8,4 +8,6 @@
 
     <dimen name="cover_layout_height">400dp</dimen>
     <dimen name="thumbnail_layout_marginTop">340dp</dimen>
+
+    <dimen name="indicator_height">3dp</dimen>
 </resources>
