@@ -1,5 +1,7 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="border">2dp</dimen>
+
     <dimen name="small_margin">8dp</dimen>
     <dimen name="medium_margin">16dp</dimen>
     <dimen name="large_margin">32dp</dimen>
@@ -16,4 +18,6 @@
 
     <dimen name="cover_layout_height">200dp</dimen>
     <dimen name="thumbnail_layout_marginTop">170dp</dimen>
+
+    <dimen name="indicator_height">2dp</dimen>
 </resources>

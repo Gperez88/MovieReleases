@@ -3,7 +3,6 @@
     package="com.gperez88.moviereleases.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Permissions required by the sync adapter -->
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
