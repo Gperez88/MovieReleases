@@ -9,10 +9,10 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc654db2-611f-412a-90bb-8732432745d5" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\gaperez\Documents\Desarrollo\Personal\Android\MovieReleases\Final Project Documents (four items)\~$droid+Fundamentals+Project+Self-Evaluation.docx" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\gaperez\Documents\Desarrollo\Personal\Android\MovieReleases\Final Project Documents (four items)\~$oblem Description.docx" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Final Project Documents (four items)/Problem Description.docx" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Problem Description.docx" />
+    <list default="true" id="dc654db2-611f-412a-90bb-8732432745d5" name="Default" comment="Project Submission Instructions">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/app-release.apk" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/app-release.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MovieReleases.iws" />
@@ -1324,7 +1324,13 @@
       <option name="project" value="LOCAL" />
       <updated>1431545718679</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Project Submission Instructions">
+      <created>1431545821725</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1431545821725</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
