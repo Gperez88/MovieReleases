@@ -7,30 +7,12 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc654db2-611f-412a-90bb-8732432745d5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Android+Fundamentals+Project+Self-Evaluation.docx" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Mockups/Movie mockups/Movil Detail Movie Land.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Mockups/Movie mockups/Movil Detail Movie Port.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Mockups/Movie mockups/Movil Main Land.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Mockups/Movie mockups/Movil Main Port.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Problem Description.docx" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Mockups/Movie mockups/Settings page.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Mockups/Tablet mockups/Table Main Port.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Mockups/Tablet mockups/Tablet Detail Movie Land.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Mockups/Tablet mockups/Tablet Detail Movie Port.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Mockups/Tablet mockups/Tablet Main Land.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/~$droid+Fundamentals+Project+Self-Evaluation.docx" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/~$oblem Description.docx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/drawee_0_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/drawee_0_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/imagepipeline_0_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/imagepipeline_0_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/library_1_0_9.xml" afterPath="$PROJECT_DIR$/.idea/libraries/library_1_0_9.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_22_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_22_0_0.xml" />
+      <change type="DELETED" beforePath="C:\Users\gaperez\Documents\Desarrollo\Personal\Android\MovieReleases\Final Project Documents (four items)\~$droid+Fundamentals+Project+Self-Evaluation.docx" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gaperez\Documents\Desarrollo\Personal\Android\MovieReleases\Final Project Documents (four items)\~$oblem Description.docx" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Final Project Documents (four items)/Problem Description.docx" afterPath="$PROJECT_DIR$/Final Project Documents (four items)/Problem Description.docx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MovieReleases.iws" />
@@ -1336,7 +1318,13 @@
       <option name="project" value="LOCAL" />
       <updated>1430003734460</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Project Submission Instructions">
+      <created>1431545718679</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1431545718679</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1415,7 +1403,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="finally" />
-    <option name="LAST_COMMIT_MESSAGE" value="finally" />
+    <MESSAGE value="Project Submission Instructions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Project Submission Instructions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
